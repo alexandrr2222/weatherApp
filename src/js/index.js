@@ -1,6 +1,8 @@
 import "../css/reset.css";
 import "../css/global.css";
-console.log("hi");
+import { initStaticIcons, StaticIconData } from "./icons.js";
+
+initStaticIcons(StaticIconData);
 
 // commit often
 // branch for major refactor
