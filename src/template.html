@@ -1,11 +1,56 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Z-Weather</title>
+  </head>
+  <body>
+    <div class="overlay"></div>
+    <!-- favBox, search, closeSearch, settings, temp, speed -->
+    <header>
+      <button class="favBoxIcon"></button>
+      <div class="searchCont">
+        <div class="searchIcon"></div>
+        <input
+          type="search"
+          class="searchbar"
+          placeholder="Search for a location..."
+        />
+        <div class="closeIcon"></div>
+      </div>
+      <button class="settingsButton"></button>
+      <menu class="settingsMenu">
+        <ul class="settingsList">
+          <li>
+            <button class="tempSetting">
+              <span class="tempSettingIcon"></span>
+              <span class="tempSettingText">Celsius</span>
+            </button>
+          </li>
+          <li>
+            <button class="speedUnitSetting">
+              <span class="speedUnitSettingIcon"></span>
+              <span class="speedUnitSettingText">Km/h</span>
+            </button>
+          </li>
+        </ul>
+      </menu>
+    </header>
+    <nav>
+      <h2 class="favMenuLabel">Favorite Locations</h2>
+      <div class="dividerLine"></div>
+      <ul class="favList">
+        <li>
+          <button>Lhota</button>
+        </li>
+        <li>
+          <button>Postrizin</button>
+        </li>
+      </ul>
+    </nav>
+    <main>
+      <!--  -->
+    </main>
+  </body>
 </html>

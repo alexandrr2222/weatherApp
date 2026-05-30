@@ -1,3 +1,9 @@
-:root{
-    
+:root {
+  --background: #1a1614;
+  --headerBackground: #201c18;
+  --navBackground: #1e1a16;
+  --surface: #252019;
+  --text: #e8e0d6;
+  --textMuted: #9a8e82;
+  --accent: #c4956a;
 }
