@@ -4,24 +4,48 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Z-Weather</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <div class="overlay"></div>
-    <!-- favBox, search, closeSearch, settings, temp, speed -->
     <header>
       <button class="favBoxIcon"></button>
       <div class="searchCont">
         <div class="searchIcon"></div>
+        <div class="closeIcon"></div>
         <input
+          id="weatherSearch"
           type="search"
           class="searchbar"
+          spellcheck="false"
           placeholder="Search for a location..."
         />
-        <div class="closeIcon"></div>
       </div>
       <button class="settingsButton"></button>
       <menu class="settingsMenu">
-        <ul class="settingsList">
+        <p class="menuLabel">Actions</p>
+        <ul class="actionsList">
+          <li>
+            <button class="favoriteThisButton">
+              <span class="starIconFull"></span>
+              <span class="starIconEmpty"></span>
+              <span class="favoriteThisText">Favorite</span>
+            </button>
+          </li>
+          <li>
+            <button class="currentLocation">
+              <span class="currentLocationIcon"></span>
+              <span class="currentLocationText">Current location</span>
+            </button>
+          </li>
+        </ul>
+        <p class="menuLabel">Units</p>
+        <ul class="unitsList">
           <li>
             <button class="tempSetting">
               <span class="tempSettingIcon"></span>
