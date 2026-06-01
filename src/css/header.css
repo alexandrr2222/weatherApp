@@ -1,0 +1,187 @@
+header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--header-bg);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  height: 10vh;
+  padding: 0 0.75rem;
+  box-shadow: 0 2px 12px var(--shadow);
+}
+header button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  flex-shrink: 0;
+}
+header button svg {
+  width: 1.6rem;
+  height: auto;
+  color: var(--accent);
+  transition: color var(--transition);
+}
+
+header button:hover svg {
+  color: var(--accent-hover);
+}
+
+.searchCont {
+  flex: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.searchIcon,
+.closeIcon {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.searchIcon {
+  left: 0.75rem;
+}
+
+.searchIcon svg {
+  width: 1rem;
+  height: 1rem;
+  color: var(--text-muted);
+  transition: color var(--transition);
+}
+
+.closeIcon {
+  right: 0.75rem;
+  pointer-events: auto;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+
+.closeIcon svg {
+  width: 1rem;
+  height: 1rem;
+  color: var(--text-muted);
+  transition: color var(--transition);
+}
+
+.closeIcon:hover svg {
+  color: var(--accent);
+}
+
+.searchCont:focus-within .closeIcon {
+  opacity: 1;
+}
+
+.searchCont:focus-within .searchIcon svg {
+  color: var(--accent);
+}
+
+.searchbar {
+  width: 100%;
+  height: 2.5rem;
+  padding: 0 2.5rem;
+  background: var(--surface);
+  border: 1px solid transparent;
+  border-radius: 2rem;
+  color: var(--text);
+  font-size: 0.85rem;
+  outline: none;
+  transition:
+    border-color var(--transition),
+    background-color var(--transition);
+}
+.searchbar::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  display: none;
+}
+
+.searchbar::placeholder {
+  color: var(--text-muted);
+  /* font-style: italic; */
+  font-family: "DM Sans", serif;
+  font-size: 0.9rem;
+}
+
+.searchbar:focus {
+  border-color: var(--accent);
+  background-color: var(--surface-hover);
+}
+
+.settingsMenu {
+  flex-direction: column;
+  position: absolute;
+  top: 3.7rem;
+  right: 0.5rem;
+  background: var(--surface);
+  border: 1px solid var(--divider);
+  border-radius: var(--radius);
+  padding: 0.4rem;
+  z-index: 11;
+  box-shadow: 0 8px 24px var(--shadow);
+  min-width: 10rem;
+  max-height: 0;
+  opacity: 0;
+  padding-bottom: 0;
+  overflow: hidden;
+  transition:
+    max-height 0.3s ease-out,
+    opacity 0.1s ease-out,
+    padding-bottom 0.3s ease-out;
+  list-style: none;
+}
+.settingsMenu.active {
+  display: flex;
+  max-height: 20rem;
+  opacity: 1;
+  padding-bottom: 0.4rem;
+}
+.settingsMenu .menuLabel:last-of-type {
+  border-top: 1px solid var(--divider);
+  padding-top: 0.4rem;
+}
+.settingsMenu ul li button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 0.5rem;
+  padding: 0.6rem 0.65rem;
+  background: none;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  color: var(--text);
+  font-size: 0.85rem;
+  transition: background-color var(--transition);
+}
+
+.settingsMenu ul li button:hover {
+  background-color: var(--surface-hover);
+}
+
+.settingsMenu ul li button svg {
+  width: 1.1rem;
+  height: auto;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+.menuLabel {
+  letter-spacing: 0.03rem;
+  font-family: "Cormorant Garamond", "Times New Roman", Times, serif;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+.starIconEmpty {
+  display: none;
+}
