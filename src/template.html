@@ -17,7 +17,7 @@
       <button class="favBoxIcon"></button>
       <div class="searchCont">
         <div class="searchIcon"></div>
-        <div class="closeIcon"></div>
+        <button class="closeIcon"></button>
         <input
           id="weatherSearch"
           type="search"
@@ -74,7 +74,99 @@
       </ul>
     </nav>
     <main>
-      <!--  -->
+      <section class="summaryCont">
+        <h1 class="cityName">Kelheim, Bavaria</h1>
+        <time datetime="15:45">03:45 PM</time>
+        <div class="mainWeatherIcon"></div>
+        <p><span id="degrees">15.6</span> <span class="tempUnit">°C</span></p>
+        <p class="weatherDesc">Partially cloudy</p>
+        <div class="minmaxCont">
+          <div class="minCont">
+            <p>
+              <span class="minIcon">↓</span>
+              <span id="degreesMin">13.4</span>
+              <span class="tempUnit">°C</span>
+            </p>
+            <p class="minDesc">Min</p>
+          </div>
+          <div class="maxCont">
+            <p>
+              <span class="maxIcon">↑</span>
+              <span id="degreesMax">18.7</span>
+              <span class="tempUnit">°C</span>
+            </p>
+            <p class="maxDesc">Max</p>
+          </div>
+        </div>
+      </section>
+      <section class="detailsCont">
+        <div class="cardCont">
+          <div class="cardIcon windIcon"></div>
+          <div class="cardDesc">
+            <p class="cardTitle">Wind</p>
+            <p class="cardResult">
+              <span id="wind">3.6</span> <span class="speedUnit">km/h</span>
+            </p>
+          </div>
+        </div>
+        <div class="cardCont">
+          <div class="cardIcon uvIcon"></div>
+          <div class="cardDesc">
+            <p class="cardTitle">UV Index</p>
+            <p class="cardResult" id="uvIndex">6.6</p>
+          </div>
+        </div>
+        <div class="cardCont">
+          <div class="cardIcon sunriseIcon"></div>
+          <div class="cardDesc">
+            <p class="cardTitle">Sunrise</p>
+            <time datetime="04:56" class="cardResult" id="sunrise"
+              >04:56 AM</time
+            >
+          </div>
+        </div>
+        <div class="cardCont">
+          <div class="cardIcon sunsetIcon"></div>
+          <div class="cardDesc">
+            <p class="cardTitle">Sunset</p>
+            <time datetime="21:03" class="cardResult" id="sunset"
+              >09:03 PM</time
+            >
+          </div>
+        </div>
+        <div class="cardCont">
+          <div class="cardIcon rainIcon"></div>
+          <div class="cardDesc">
+            <p class="cardTitle">Precipitation</p>
+            <p class="cardResult" id="precipitation">13%</p>
+          </div>
+        </div>
+        <div class="cardCont">
+          <div class="cardIcon humidityIcon"></div>
+          <div class="cardDesc">
+            <p class="cardTitle">Humidity</p>
+            <p class="cardResult" id="humidity">71%</p>
+          </div>
+        </div>
+      </section>
+      <section class="hourlyCont">
+        <div class="hourCard">
+          <p class="temperature0h"></p>
+          <div class="weatherHourIcon0h"></div>
+          <time datetime="" class="time0h"></time>
+        </div>
+      </section>
+      <section class="dailyCont">
+        <div class="dayCard">
+          <time datetime="" class="day0"></time>
+          <div class="weatherDayIcon0"></div>
+          <p class="minMaxDay0">
+            <span class="maxDay0">20</span><span class="tempUnit">°C</span>
+            <span>/</span>
+            <span class="minDay0">13</span><span class="tempUnit">°C</span>
+          </p>
+        </div>
+      </section>
     </main>
   </body>
 </html>

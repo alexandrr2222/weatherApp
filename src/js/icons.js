@@ -35,9 +35,270 @@ export const StaticIconData = [
   {
     currentLocationIcon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,11.5A2.5,2.5 0 0,1 9.5,9A2.5,2.5 0 0,1 12,6.5A2.5,2.5 0 0,1 14.5,9A2.5,2.5 0 0,1 12,11.5M12,2A7,7 0 0,0 5,9C5,14.25 12,22 12,22C12,22 19,14.25 19,9A7,7 0 0,0 12,2Z" /></svg>`,
   },
-];
-export const animatedIcons = [
   {
-    sunnyIcon: `<?xml version="1.0" encoding="utf-8"?><svg fill="none" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><defs /><g transform="matrix(1,0,0,1,128,128)" id="bond"><g id="bond"><rect height="256" width="256" y="0" x="0" /></g></g><g id="Oval"><g transform="translate(128,128)"><g transform="scale(1,1)"><animateTransform repeatCount="indefinite" type="scale" attributeName="transform" dur="3s" begin="0s" calcMode="spline" values="1 1; 1.03 1.03; 1 1; 1.03 1.03; 1 1" keyTimes="0; 0.25; 0.5; 0.75; 1" keySplines="0.333 0 0.833 0.833; 0.333 0 0.833 0.833; 0.333 0 0.833 0.833; 0.333 0 0.833 0.833" fill="freeze" /><g transform="translate(0,0)"><g id="Oval"><ellipse ry="102.4" rx="102.4" cy="0" cx="0" stroke-linejoin="miter" stroke-linecap="butt" stroke-width="4.571" stroke-opacity="1" stroke="#fff5da" /></g></g></g></g></g><g id="Oval"><g transform="translate(127.435,127.435)"><g transform="scale(0.98,0.98)"><animateTransform repeatCount="indefinite" type="scale" attributeName="transform" dur="3s" begin="0s" calcMode="spline" values="0.98 0.98; 1.01 1.01; 0.98 0.98; 1.01 1.01; 0.98 0.98" keyTimes="0; 0.222; 0.472; 0.722; 1" keySplines="0 0 1 1; 0.333 0 0.833 0.833; 0.333 0 0.833 0.833; 0.333 0 0.833 1" fill="freeze" /><g transform="translate(0,0)"><g id="Oval"><ellipse ry="90.455" rx="90.455" cy="0" cx="0" stroke-linejoin="miter" stroke-linecap="butt" stroke-width="8.533" stroke-opacity="1" stroke="#ffdb77" /></g></g></g></g></g><g id="Oval "><g transform="translate(127.43,127.43)"><g transform="scale(1,1)"><animateTransform repeatCount="indefinite" type="scale" attributeName="transform" dur="3s" begin="0s" calcMode="spline" values="1 1; 1.03 1.03; 1 1; 1.03 1.03; 1 1" keyTimes="0; 0.194; 0.444; 0.694; 1" keySplines="0.333 0 0.833 0.833; 0.333 0 0.833 0.833; 0.333 0 0.833 0.833; 0.333 0 0.833 0.833" fill="freeze" /><g transform="translate(0,0)"><g id="Oval "><ellipse ry="76.8" rx="76.8" cy="0" cx="0" fill="#ffc930" fill-opacity="1" /></g></g></g></g></g></svg>`,
+    windIcon: `<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="516.4px" height="516.4px" viewBox="0 0 516.4 516.4" style="enable-background:new 0 0 516.4 516.4;" xml:space="preserve"
+	>
+<g>
+	<g>
+		<path d="M344.199,143.45c0-42.1-34.398-76.5-76.5-76.5c-42.099,0-76.499,34.4-76.499,76.5h38.2c0-21,17.2-38.2,38.2-38.2
+			c21,0,38.201,17.2,38.201,38.2s-17.201,38.2-38.201,38.2H38.2v38.2h229.499C309.801,220.05,344.199,185.55,344.199,143.45z"/>
+		<path d="M439.801,143.45c-42.102,0-76.5,34.4-76.5,76.5H401.6c0-21,17.201-38.2,38.201-38.2S478,198.95,478,219.95
+			s-17.1,38.3-38.199,38.3H0v38.2h439.9c42.1,0,76.5-34.4,76.5-76.5C516.4,177.85,481.9,143.45,439.801,143.45z"/>
+		<path d="M382.5,334.75H114.7v38.2h267.8c11.5,0,19.1,7.6,19.1,19.1s-7.6,19.101-19.1,19.101s-19.1-7.601-19.1-19.101h-38.201
+			c0,30.601,24.9,57.4,57.4,57.4s57.4-24.9,57.4-57.4S415,334.75,382.5,334.75z"/>
+	</g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+</svg>
+<`,
+  },
+  {
+    uvIcon: `<?xml version="1.0" ?><svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><title/><g id="Sun"><circle cx="32" cy="32" r="15"/><path d="M32,13a1,1,0,0,1-1-1V3a1,1,0,0,1,2,0v9A1,1,0,0,1,32,13Z"/><path d="M17.8574,18.8579a.9964.9964,0,0,1-.707-.293l-4.2422-4.2426a1,1,0,1,1,1.4141-1.4141l4.2422,4.2427a1,1,0,0,1-.7071,1.707Z"/><path d="M12,33H3a1,1,0,0,1,0-2h9a1,1,0,0,1,0,2Z"/><path d="M13.6152,51.3848a1,1,0,0,1-.707-1.7071L17.15,45.4351a1,1,0,1,1,1.4141,1.414l-4.2422,4.2427A.9969.9969,0,0,1,13.6152,51.3848Z"/><path d="M32,62a1,1,0,0,1-1-1V52a1,1,0,0,1,2,0v9A1,1,0,0,1,32,62Z"/><path d="M50.3848,51.3848a.9969.9969,0,0,1-.7071-.293l-4.2422-4.2427a1,1,0,1,1,1.4141-1.414l4.2422,4.2426a1,1,0,0,1-.707,1.7071Z"/><path d="M61,33H52a1,1,0,0,1,0-2h9a1,1,0,0,1,0,2Z"/><path d="M46.1426,18.8579a1,1,0,0,1-.7071-1.707l4.2422-4.2427a1,1,0,0,1,1.4141,1.4141L46.85,18.5649A.9964.9964,0,0,1,46.1426,18.8579Z"/></g></svg>`,
+  },
+  {
+    sunriseIcon: `<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="369.2px" height="369.2px" viewBox="0 0 369.2 369.2" style="enable-background:new 0 0 369.2 369.2;" xml:space="preserve"
+	>
+<g>
+	<g>
+		<path d="M181.8,117.6c5.7,0,9.601-3.8,9.601-9.6V69.8c0-5.7-3.8-9.6-9.601-9.6c-5.8,0-9.6,3.8-9.6,9.6V108
+			C172.2,113.8,177.9,117.6,181.8,117.6z"/>
+		<path d="M308,241.9c0,5.699,3.8,9.6,9.601,9.6H355.8c5.7,0,9.601-3.8,9.601-9.6c0-5.801-3.8-9.601-9.601-9.601h-38.199
+			C311.8,232.4,308,238.1,308,241.9z"/>
+		<path d="M283.101,154l26.8-26.8c3.8-3.8,3.8-9.6,0-13.4c-3.8-3.8-9.601-3.8-13.4,0l-26.8,26.8c-3.8,3.8-3.8,9.6,0,13.4
+			C273.601,157.8,281.2,157.8,283.101,154z"/>
+		<path d="M78.5,251.5h49.7l55.5-47.8l55.5,47.8H287c0-3.8,0-5.7,0-9.6c0-57.4-47.8-105.2-105.2-105.2
+			c-57.399,0-105.2,47.8-105.2,105.2C76.6,245.8,76.6,247.7,78.5,251.5z"/>
+		<path d="M353.9,289.8H248.7L181.8,232.4L114.9,289.8H11.5c-5.7,0-9.6,3.8-9.6,9.601c0,5.8,3.8,9.6,9.6,9.6h116.7l22.9-19.1
+			l34.4-28.7l34.4,28.7l23,19.1h116.7c5.699,0,9.6-3.8,9.6-9.6C365.4,293.6,359.601,289.8,353.9,289.8z"/>
+		<path d="M9.6,251.5h38.2c5.7,0,9.6-3.8,9.6-9.6c0-5.801-3.8-9.601-9.6-9.601H9.6C3.9,232.3,0,238,0,241.9
+			C0.1,247.7,3.9,251.5,9.6,251.5z"/>
+		<path d="M80.4,154c3.8,3.8,9.6,3.8,13.4,0c3.8-3.8,3.8-9.6,0-13.4L67,113.8c-3.8-3.8-9.6-3.8-13.4,0c-3.8,3.8-3.8,9.6,0,13.4
+			L80.4,154z"/>
+	</g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+</svg>
+`,
+  },
+  {
+    sunsetIcon: `<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="363.5px" height="363.5px" viewBox="0 0 363.5 363.5" style="enable-background:new 0 0 363.5 363.5;" xml:space="preserve"
+	>
+<g>
+	<g>
+		<path d="M181.7,86.05c5.701,0,9.6-3.8,9.6-9.6v-38.2c0-5.7-3.8-9.6-9.6-9.6c-5.8,0-9.6,3.8-9.6,9.6v38.2
+			C172.2,82.25,176,86.05,181.7,86.05z"/>
+		<path d="M283.1,122.45l26.8-26.8c3.801-3.8,3.801-9.6,0-13.4c-3.8-3.8-9.6-3.8-13.399,0l-26.8,26.8c-3.801,3.8-3.801,9.6,0,13.4
+			C273.5,126.25,279.3,126.25,283.1,122.45z"/>
+		<path d="M76.5,219.95h210.399c0-3.8,0-5.699,0-9.6c0-57.4-47.8-105.2-105.2-105.2s-105.2,47.8-105.2,105.2
+			C76.5,214.25,76.5,216.15,76.5,219.95z"/>
+		<path d="M306.1,210.45c0,5.7,3.8,9.601,9.601,9.601h38.199c5.7,0,9.601-3.8,9.601-9.601c0-5.8-3.8-9.6-9.601-9.6H315.7
+			C311.8,200.85,306.1,206.55,306.1,210.45z"/>
+		<path d="M353.899,258.25H237.2l-23,19.1l-34.4,28.7l-30.6-28.7l-22.9-19.1H9.6c-3.8,0-9.6,3.8-9.6,9.6s5.7,9.6,9.6,9.6h105.2
+			l66.9,57.4l66.9-57.4h105.2c5.7,0,9.6-3.8,9.6-9.6S359.6,258.25,353.899,258.25z"/>
+		<path d="M80.4,122.45c3.8,3.8,9.6,3.8,13.4,0c3.8-3.8,3.8-9.6,0-13.4L67,82.25c-3.8-3.8-9.6-3.8-13.4,0c-3.8,3.8-3.8,9.6,0,13.4
+			L80.4,122.45z"/>
+		<path d="M9.6,219.95h38.2c3.8,0,9.6-3.8,9.6-9.6c0-3.8-3.8-9.601-9.6-9.601H9.6c-5.7,0-9.6,5.7-9.6,9.601
+			C0.1,216.15,3.9,219.95,9.6,219.95z"/>
+	</g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+</svg>
+`,
+  },
+  {
+    rainIcon: `<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="516.301px" height="516.301px" viewBox="0 0 516.301 516.301" style="enable-background:new 0 0 516.301 516.301;"
+	 xml:space="preserve">
+<g>
+	<g>
+		<path d="M124.4,363.3c0,0-47.8,45.9-47.8,74.602c0,21,15.3,40.199,47.8,40.199s47.8-21,47.8-40.199
+			C172.2,409.2,124.4,363.3,124.4,363.3z"/>
+		<path d="M258.3,382.401c0,0-47.8,45.898-47.8,74.6c0,21,15.3,40.199,47.8,40.199c32.5,0,47.801-21,47.801-40.199
+			C306.101,428.3,258.3,382.401,258.3,382.401z"/>
+		<path d="M392.101,363.3c0,0-47.801,45.9-47.801,74.602c0,21,15.301,40.199,47.801,40.199s47.8-21,47.8-40.199
+			C439.9,409.2,392.101,363.3,392.101,363.3z"/>
+		<path d="M459.101,160.601c0-57.4-47.801-103.3-105.2-103.3c-21,0-38.2,5.7-55.5,15.3c-24.9-32.5-63.1-53.5-107.1-53.5
+			c-74.6,0-133.9,59.3-133.9,133.9c0,1.9,0,5.7,0,7.6c-34.4,15.3-57.4,47.8-57.4,88c0,53.5,42.1,95.599,95.6,95.599h325.1
+			c53.5,0,95.6-42.1,95.6-95.599C516.5,208.401,493.5,175.901,459.101,160.601z"/>
+	</g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+</svg>
+`,
+  },
+  {
+    humidityIcon: `<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="229.5px" height="229.5px" viewBox="0 0 229.5 229.5" style="enable-background:new 0 0 229.5 229.5;" xml:space="preserve"
+	>
+<g>
+	<path d="M114.75,0c0,0-76.5,109-76.5,156.8c0,40.2,34.4,72.7,76.5,72.7c42.1,0,76.5-32.5,76.5-72.7C191.25,109.1,114.75,0,114.75,0
+		z"/>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+</svg>
+`,
   },
 ];
