@@ -76,13 +76,19 @@
     <main>
       <section class="summaryCont">
         <h1 class="cityName">Kelheim, Bavaria</h1>
-        <time datetime="15:45">03:45 PM</time>
+        <p class="currentTime">
+          <span>Local time: </span>
+          <time datetime="15:45">3:45 pm</time>
+          <!-- add Forecast for: Today, 16:00 -->
+        </p>
         <div class="mainWeatherIcon"></div>
-        <p><span id="degrees">15.6</span> <span class="tempUnit">°C</span></p>
+        <p class="mainDegrees">
+          <span id="degrees">15.6</span> <span class="tempUnit">°C</span>
+        </p>
         <p class="weatherDesc">Partially cloudy</p>
         <div class="minmaxCont">
           <div class="minCont">
-            <p>
+            <p class="minNumbers">
               <span class="minIcon">↓</span>
               <span id="degreesMin">13.4</span>
               <span class="tempUnit">°C</span>
@@ -90,7 +96,7 @@
             <p class="minDesc">Min</p>
           </div>
           <div class="maxCont">
-            <p>
+            <p class="maxNumbers">
               <span class="maxIcon">↑</span>
               <span id="degreesMax">18.7</span>
               <span class="tempUnit">°C</span>
@@ -100,7 +106,7 @@
         </div>
       </section>
       <section class="detailsCont">
-        <div class="cardCont">
+        <div class="cardCont windCont">
           <div class="cardIcon windIcon"></div>
           <div class="cardDesc">
             <p class="cardTitle">Wind</p>
@@ -109,39 +115,37 @@
             </p>
           </div>
         </div>
-        <div class="cardCont">
+        <div class="cardCont uvCont">
           <div class="cardIcon uvIcon"></div>
           <div class="cardDesc">
             <p class="cardTitle">UV Index</p>
             <p class="cardResult" id="uvIndex">6.6</p>
           </div>
         </div>
-        <div class="cardCont">
+        <div class="cardCont sunriseCont">
           <div class="cardIcon sunriseIcon"></div>
           <div class="cardDesc">
             <p class="cardTitle">Sunrise</p>
             <time datetime="04:56" class="cardResult" id="sunrise"
-              >04:56 AM</time
+              >4:56 AM</time
             >
           </div>
         </div>
-        <div class="cardCont">
+        <div class="cardCont sunsetCont">
           <div class="cardIcon sunsetIcon"></div>
           <div class="cardDesc">
             <p class="cardTitle">Sunset</p>
-            <time datetime="21:03" class="cardResult" id="sunset"
-              >09:03 PM</time
-            >
+            <time datetime="21:03" class="cardResult" id="sunset">9:03 PM</time>
           </div>
         </div>
-        <div class="cardCont">
+        <div class="cardCont precipitationCont">
           <div class="cardIcon rainIcon"></div>
           <div class="cardDesc">
             <p class="cardTitle">Precipitation</p>
             <p class="cardResult" id="precipitation">13%</p>
           </div>
         </div>
-        <div class="cardCont">
+        <div class="cardCont humidityCont">
           <div class="cardIcon humidityIcon"></div>
           <div class="cardDesc">
             <p class="cardTitle">Humidity</p>

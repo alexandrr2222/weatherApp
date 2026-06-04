@@ -1,0 +1,141 @@
+main {
+  padding: 1.5rem;
+}
+.summaryCont {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.cityName {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 3rem;
+  font-weight: bold;
+  margin-top: -0.5rem;
+  margin-bottom: -1rem;
+}
+.currentTime {
+  font-family: "Cormorant Garamond", serif;
+  font-weight: bold;
+  color: var(--text-muted);
+  font-size: 2rem;
+}
+.mainWeatherIcon svg {
+  height: 8rem;
+  width: auto;
+  margin-bottom: -1rem;
+}
+.mainDegrees {
+  font-size: 5rem;
+  font-weight: 400;
+  margin-bottom: -1.5rem;
+}
+.weatherDesc {
+  color: var(--text-muted);
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+.minmaxCont {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+.minIcon,
+.maxIcon {
+  font-size: 1rem;
+  vertical-align: super;
+}
+.minCont,
+.maxCont {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.minNumbers,
+.maxNumbers {
+  font-size: 2rem;
+  margin-bottom: -0.4rem;
+}
+.minDesc,
+.maxDesc {
+  color: var(--text-muted);
+  font-size: 1rem;
+}
+.detailsCont {
+  margin-top: 1.5rem;
+  display: grid;
+  justify-content: space-evenly;
+  gap: 0.75rem;
+  grid-template-areas:
+    "wind UV"
+    "sunrise sunset"
+    "rain humidity";
+}
+.cardCont {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.windCont {
+  grid-area: wind;
+}
+.uvCont {
+  grid-area: UV;
+}
+.sunriseCont {
+  grid-area: sunrise;
+}
+.sunsetCont {
+  grid-area: sunset;
+}
+.precipitationCont {
+  grid-area: rain;
+}
+.humidityCont {
+  grid-area: humidity;
+}
+.windCont .cardIcon svg {
+  color: #8bb8c4;
+}
+.uvCont .cardIcon svg {
+  color: #d4a054;
+}
+.sunriseCont .cardIcon svg {
+  color: #e8b84a;
+}
+.sunsetCont .cardIcon svg {
+  color: #c47a3a;
+}
+.precipitationCont .cardIcon svg {
+  color: #6b9fc4;
+}
+.humidityCont .cardIcon svg {
+  color: #7ab5a0;
+}
+.cardIcon svg {
+  max-width: 100%;
+  max-height: 100%;
+}
+.cardIcon {
+  height: 1.5rem;
+  width: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+}
+.cardTitle {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 0.125rem;
+}
+
+.cardResult {
+  margin-top: -0.1rem;
+  font-size: 1rem;
+  color: var(--text);
+  font-weight: 500;
+  display: block;
+}
+.hourlyCont {
+  margin-top: 3rem;
+}
