@@ -139,3 +139,24 @@ main {
 .hourlyCont {
   margin-top: 3rem;
 }
+.hourlyCont ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.hourlyCont ul li {
+  padding: 0.3rem;
+  background-color: var(--divider);
+}
+.dailyCont {
+  margin-top: 3rem;
+}
+.dailyCont ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.dailyCont ul li {
+  padding: 0.6rem;
+  background-color: var(--divider);
+}

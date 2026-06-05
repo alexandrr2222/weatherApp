@@ -6,6 +6,13 @@ import "../css/main.css";
 import { initStaticIcons, StaticIconData } from "./icons.js";
 import { manipulateClass } from "./helperFunctions.js";
 import { getWeatherData } from "./weatherData.js";
+import { autocompleteSearch } from "./search.js";
+import {
+  createSearchDOM,
+  changeWeatherDOM,
+  buildHourCards,
+  buildDayCards,
+} from "./domBuilder.js";
 
 const settingsButton = document.querySelector(".settingsButton");
 const settingsMenu = document.querySelector(".settingsMenu");
@@ -14,7 +21,52 @@ const overlay = document.querySelector(".overlay");
 const nav = document.querySelector("nav");
 const closeIcon = document.querySelector(".closeIcon");
 const weatherSearch = document.querySelector("#weatherSearch");
-getWeatherData("prague");
+const autocomplete = document.querySelector(".autocomplete");
+const hourlyCont = document.querySelector(".hourlyCont ul");
+const dailyCont = document.querySelector(".dailyCont ul");
+
+const changingValues = {
+  locationName: document.querySelector(".cityName"),
+  localTime: document.querySelector(".currentTime time"),
+  mainWeatherIcon: document.querySelector(".mainWeatherIcon"),
+  temp: document.querySelector("#degrees"),
+  tempDesc: document.querySelector(".weatherDesc"),
+  tempMin: document.querySelector("#degreesMin"),
+  tempMax: document.querySelector("#degreesMax"),
+  wind: document.querySelector("#wind"),
+  uvIndex: document.querySelector("#uvIndex"),
+  sunrise: document.querySelector("#sunrise"),
+  sunset: document.querySelector("#sunset"),
+  rain: document.querySelector("#precipitation"),
+  humidity: document.querySelector("#humidity"),
+};
+
+let timer;
+buildHourCards(hourlyCont);
+buildDayCards(dailyCont, 3);
+
+weatherSearch.addEventListener("input", (e) => {
+  clearTimeout(timer);
+  timer = setTimeout(async () => {
+    const returnedSearch = await autocompleteSearch(e.target.value);
+    if (returnedSearch) {
+      createSearchDOM(returnedSearch, autocomplete);
+      const autocompleteOptions = Array.from(
+        document.querySelectorAll(".autocomplete li"),
+      );
+      autocompleteOptions.forEach((opt) => {
+        opt.addEventListener("click", async (e) => {
+          const returnedWeather = await getWeatherData(
+            e.target.closest("li").dataset.city,
+          );
+          if (returnedWeather) {
+            changeWeatherDOM(changingValues, returnedWeather, "current");
+          }
+        });
+      });
+    }
+  }, 500);
+});
 initStaticIcons(StaticIconData);
 manipulateClass(settingsButton, settingsMenu, "active", "toggle");
 manipulateClass(favBoxIcon, [overlay, nav], "active", "add");
@@ -70,7 +122,3 @@ mainWeatherIcon.innerHTML = `<svg viewBox="0 0 128 128" fill="none" xmlns="http:
 // ##########################################
 
 // MAIN:
-// upper part: temp, minmax temp, condition, feels temp
-// lower part details: uv index, sunrise, sunset, chance of rain, humidity, wind
-// Hourly switcher = current hour + 12 with condition icon
-// Day switcher - 5-7 days with average condition icon
