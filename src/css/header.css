@@ -86,10 +86,17 @@ header button:hover svg {
 .searchCont:focus-within .searchIcon svg {
   color: var(--accent);
 }
-
-.searchbar {
+.inputCont {
   width: 100%;
   height: 2.5rem;
+  position: relative;
+}
+.autocomplete {
+  position: absolute;
+}
+.searchbar {
+  width: 100%;
+  height: 100%;
   padding: 0 2.5rem;
   background: var(--surface);
   border: 1px solid transparent;

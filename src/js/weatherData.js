@@ -4,14 +4,13 @@ export async function getWeatherData(location) {
       `https://api.weatherapi.com/v1/forecast.json?key=c284ebc64e014691990183005260306&q=${location}&days=3&aqi=no&alerts=no`,
     );
     const responseData = await response.json();
-    console.log(responseData);
     return createWeatherObject(responseData);
   } catch (error) {
     console.log(error);
   }
 }
 function createWeatherObject(responseData) {
-  const w = {
+  return {
     location: {
       name: responseData.location.name + ", " + responseData.location.region,
       localTime: responseData.location.localtime,
@@ -52,7 +51,6 @@ function createWeatherObject(responseData) {
       })),
     })),
   };
-  console.log(w);
 }
 
 // kdyz je noc {night}_{object.description}

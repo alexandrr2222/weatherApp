@@ -18,13 +18,16 @@
       <div class="searchCont">
         <div class="searchIcon"></div>
         <button class="closeIcon"></button>
-        <input
-          id="weatherSearch"
-          type="search"
-          class="searchbar"
-          spellcheck="false"
-          placeholder="Search for a location..."
-        />
+        <div class="inputCont">
+          <input
+            id="weatherSearch"
+            type="search"
+            class="searchbar"
+            spellcheck="false"
+            placeholder="Search for a location..."
+          />
+          <ul class="autocomplete" role="listbox"></ul>
+        </div>
       </div>
       <button class="settingsButton"></button>
       <menu class="settingsMenu">
@@ -141,7 +144,7 @@
         <div class="cardCont precipitationCont">
           <div class="cardIcon rainIcon"></div>
           <div class="cardDesc">
-            <p class="cardTitle">Precipitation</p>
+            <p class="cardTitle">Rain</p>
             <p class="cardResult" id="precipitation">13%</p>
           </div>
         </div>
@@ -154,22 +157,26 @@
         </div>
       </section>
       <section class="hourlyCont">
-        <div class="hourCard">
-          <p class="temperature0h"></p>
-          <div class="weatherHourIcon0h"></div>
-          <time datetime="" class="time0h"></time>
-        </div>
+        <ul>
+          <!-- <li class="hourCard">
+            <p class="temperature0h"></p>
+            <div class="weatherHourIcon0h"></div>
+            <time datetime="" class="time0h"></time>
+          </li> -->
+        </ul>
       </section>
       <section class="dailyCont">
-        <div class="dayCard">
-          <time datetime="" class="day0"></time>
-          <div class="weatherDayIcon0"></div>
-          <p class="minMaxDay0">
-            <span class="maxDay0">20</span><span class="tempUnit">°C</span>
-            <span>/</span>
-            <span class="minDay0">13</span><span class="tempUnit">°C</span>
-          </p>
-        </div>
+        <ul>
+          <!-- <li class="dayCard">
+            <time datetime="" class="day0"></time>
+            <div class="weatherDayIcon0"></div>
+            <p class="minMaxDay0">
+              <span class="maxDay0">20</span><span class="tempUnit">°C</span>
+              <span>/</span>
+              <span class="minDay0">13</span><span class="tempUnit">°C</span>
+            </p>
+          </li> -->
+        </ul>
       </section>
     </main>
   </body>
