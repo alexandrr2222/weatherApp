@@ -39,6 +39,14 @@ export const StaticIconData = [
     currentLocationIcon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,11.5A2.5,2.5 0 0,1 9.5,9A2.5,2.5 0 0,1 12,6.5A2.5,2.5 0 0,1 14.5,9A2.5,2.5 0 0,1 12,11.5M12,2A7,7 0 0,0 5,9C5,14.25 12,22 12,22C12,22 19,14.25 19,9A7,7 0 0,0 12,2Z" /></svg>`,
   },
   {
+    dividerLineIcon: `<svg viewBox="0 0 180 12" width="100%" height="12">
+  <line x1="0" y1="6" x2="72" y2="6" stroke="#3a3028" stroke-width="1"/>
+  <polygon points="82,6 86,2 90,6 86,10" fill="none" stroke="#a66537f6" stroke-width="1"/>
+  <line x1="98" y1="6" x2="180" y2="6" stroke="#3a3028" stroke-width="1"/>
+</svg>
+`,
+  },
+  {
     windIcon: `<?xml version="1.0" encoding="iso-8859-1"?>
 <!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">

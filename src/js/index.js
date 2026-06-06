@@ -1,6 +1,12 @@
-// animation load
+// animation load , especially sun
+// localStorage
+// implement days
 // spinner
-//
+
+// refactor and especially modulate code
+// detail changer for hours
+// goofy region overflow handling
+
 import "../css/reset.css";
 import "../css/global.css";
 import "../css/header.css";
@@ -40,6 +46,107 @@ const speedUnitSetting = document.querySelector(".speedUnitSetting");
 const speedUnitSettingText = document.querySelector(".speedUnitSettingText");
 const timeSetting = document.querySelector(".timeSetting");
 const timeText = document.querySelector(".timeText");
+const favoriteThisButton = document.querySelector(".favoriteThisButton");
+const favoriteThisText = document.querySelector(".favoriteThisText");
+const starIconFull = document.querySelector(".starIconFull");
+const starIconEmpty = document.querySelector(".starIconEmpty");
+const favList = document.querySelector(".favList");
+const favoritePlaces = [];
+
+favoriteThisButton.addEventListener("click", () => {
+  const cityName = document.querySelector(".cityName");
+  let formattedName;
+  if (cityName.textContent.includes(","))
+    formattedName = cityName.textContent.split(",")[0];
+  else formattedName = cityName.textContent;
+  const latitude = cityName.dataset.latitude;
+  const longitude = cityName.dataset.longitude;
+  if (favoriteThisText.textContent === "Favorite") {
+    starIconFull.style.display = "none";
+    starIconEmpty.style.display = "block";
+    favoriteThisText.textContent = "Unfavorite";
+    const li = document.createElement("li");
+    li.innerHTML = `
+    <button 
+    id = "ID${latitude.replace(/\./g, "")}${longitude.replace(/\./g, "")}"
+    data-latitude="${latitude}" 
+    data-longitude="${longitude}">
+        ${formattedName}
+    </button>`;
+    favoritePlaces.push({
+      name: formattedName,
+      region: cityName.textContent.split(",")[1],
+      latitude: latitude,
+      longitude: longitude,
+    });
+    favList.append(li);
+    li.addEventListener("click", async () => {
+      const reverseGeoSearch = await fetch(
+        `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`,
+      );
+      const searchResult = await reverseGeoSearch.json();
+      let name;
+      let region;
+      const ourObject = favoritePlaces.find(
+        (obj) => obj.latitude === latitude && obj.longitude === longitude,
+      );
+      if (searchResult.address.town === undefined) {
+        name = ourObject.name;
+        region = ourObject.region;
+      } else {
+        name = searchResult.address.town;
+        region = searchResult.address.region;
+      }
+      const reformatedSearchResult = {
+        name: name,
+        region: region,
+        country: searchResult.address.country,
+        latitude: latitude,
+        longitude: longitude,
+      };
+      const returnedWeather = await getWeatherData(latitude, longitude);
+      if (returnedWeather) {
+        changeWeatherDOM(
+          changingValues,
+          returnedWeather,
+          reformatedSearchResult,
+        );
+        buildHourCards(hourlyCont, returnedWeather);
+        buildDayCards(dailyCont, returnedWeather);
+        checkUnits();
+        checkFavorite(latitude, longitude);
+      }
+    });
+  } else if (favoriteThisText.textContent === "Unfavorite") {
+    starIconFull.style.display = "block";
+    starIconEmpty.style.display = "none";
+    favoriteThisText.textContent = "Favorite";
+    const foundIndex = favoritePlaces.findIndex(
+      (obj) => obj.latitude === latitude && obj.longitude === longitude,
+    );
+    const targetCity = document.querySelector(
+      `#ID${latitude.replace(/\./g, "")}${longitude.replace(/\./g, "")}`,
+    );
+    targetCity.remove();
+    favoritePlaces.splice(foundIndex, 1);
+  }
+});
+
+function checkFavorite(latitude, longitude) {
+  if (
+    document.querySelector(
+      `#ID${String(latitude).replace(/\./g, "")}${String(longitude).replace(/\./g, "")}`,
+    )
+  ) {
+    starIconFull.style.display = "none";
+    starIconEmpty.style.display = "block";
+    favoriteThisText.textContent = "Unfavorite";
+  } else {
+    starIconFull.style.display = "block";
+    starIconEmpty.style.display = "none";
+    favoriteThisText.textContent = "Favorite";
+  }
+}
 
 const changingValues = {
   locationName: document.querySelector(".cityName"),
@@ -83,6 +190,7 @@ function getCurrentLocation() {
       buildHourCards(hourlyCont, returnedWeather);
       buildDayCards(dailyCont, returnedWeather);
       checkUnits();
+      checkFavorite(latitude, longitude);
     }
   });
 }
@@ -142,6 +250,7 @@ weatherSearch.addEventListener("input", (e) => {
       );
       autocompleteOptions.forEach((opt) => {
         opt.addEventListener("click", async (e) => {
+          weatherSearch.value = "";
           const elementLatitude = e.target.closest("li").dataset.latitude;
           const elementLongitude = e.target.closest("li").dataset.longitude;
           const selectedSearch = returnedSearch.find(
@@ -159,6 +268,7 @@ weatherSearch.addEventListener("input", (e) => {
             buildHourCards(hourlyCont, returnedWeather);
             buildDayCards(dailyCont, returnedWeather);
             checkUnits();
+            checkFavorite(selectedSearch.latitude, selectedSearch.longitude);
           }
         });
       });
@@ -210,11 +320,3 @@ mainWeatherIcon.innerHTML = `<svg viewBox="0 0 128 128" fill="none" xmlns="http:
 </linearGradient>
 </defs>
 </svg>`;
-// #######
-
-// commit often
-// branch for major refactor
-// keep dom queries in index
-// nobody imports from each other
-
-// ##########################################

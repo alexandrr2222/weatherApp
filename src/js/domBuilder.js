@@ -28,7 +28,8 @@ export function changeWeatherDOM(DOM, data, searchData) {
   DOM.locationName.dataset.longitude = searchData.longitude;
   if (
     searchData.name === searchData.region ||
-    (searchData.name + ", " + searchData.region).length > 25
+    (searchData.name + ", " + searchData.region).length > 25 ||
+    searchData.region === undefined
   )
     DOM.locationName.textContent = searchData.name;
   else

@@ -30,19 +30,28 @@ nav.active {
 }
 
 .favMenuLabel {
-  text-align: center;
+  text-align: start;
   font-family: "Cormorant Garamond", serif;
   font-weight: 500;
   font-size: 1.5rem;
-  color: var(--text-muted);
+  color: var(--text);
   letter-spacing: 0.02rem;
-  padding: 0 0.5rem;
+  padding: 0;
 }
 
 .dividerLine {
   height: 2px;
-  background: var(--divider);
+  background: var(--text-muted);
   margin: 0.5rem 0;
+}
+.dividerLineIcon {
+  height: 1rem;
+  width: 100%;
+  align-self: center;
+}
+.dividerLineIcon svg {
+  height: 100%;
+  width: 100%;
 }
 
 .favList {
