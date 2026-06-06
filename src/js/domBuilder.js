@@ -1,6 +1,5 @@
 import { formatInTimeZone } from "date-fns-tz";
 const DISPLAYED_HOURS = 12;
-// animation load
 async function renderIcon(description, parent, night) {
   try {
     const icon = await import(`../icons/animated/${description}${night}.svg`);
@@ -39,12 +38,12 @@ export function changeWeatherDOM(DOM, data, searchData) {
     data.timezone,
     "HH:mm",
   );
-  DOM.temp.textContent = data.current.temperature_2m;
+  DOM.temp.textContent = Math.round(data.current.temperature_2m);
   DOM.tempDesc.textContent = weatherConditions[data.current.weather_code];
-  DOM.tempMin.textContent = data.daily.temperature_2m_min[0];
-  DOM.tempMax.textContent = data.daily.temperature_2m_max[0];
-  DOM.wind.textContent = data.current.wind_speed_10m;
-  DOM.uvIndex.textContent = data.hourly.uv_index[currentHour];
+  DOM.tempMin.textContent = Math.round(data.daily.temperature_2m_min[0]);
+  DOM.tempMax.textContent = Math.round(data.daily.temperature_2m_max[0]);
+  DOM.wind.textContent = Math.round(data.current.wind_speed_10m);
+  DOM.uvIndex.textContent = data.hourly.uv_index[currentHour].toFixed(1);
   DOM.sunrise.textContent = data.daily.sunrise[0].slice(-5);
   DOM.sunset.textContent = data.daily.sunset[0].slice(-5);
   DOM.rain.textContent = data.current.precipitation;
@@ -95,10 +94,10 @@ export function buildHourCards(parent, weather) {
     }
     const li = document.createElement("li");
     li.innerHTML = `
-        <time datetime="" class="timeHour">${Number(checkedHour) + ii}:00</time>
+        <time datetime="" class="timeHour time">${Number(checkedHour) + ii}:00</time>
         <div class="weatherHourIcon${i}"></div>
         <p class="temperatureHour">
-            <span class="hourTemp">${weather.hourly.temperature_2m[Number(currentHour) + i + 1]} </span>
+            <span class="hourTemp degree">${Math.round(weather.hourly.temperature_2m[Number(currentHour) + i + 1])} </span>
             <span class="tempUnit">°C</span>
         </p>`;
     parent.append(li);

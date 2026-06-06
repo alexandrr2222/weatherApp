@@ -53,13 +53,19 @@
           <li>
             <button class="tempSetting">
               <span class="tempSettingIcon"></span>
-              <span class="tempSettingText">Celsius</span>
+              <span class="tempSettingText">Fahrenheit</span>
             </button>
           </li>
           <li>
             <button class="speedUnitSetting">
               <span class="speedUnitSettingIcon"></span>
-              <span class="speedUnitSettingText">Km/h</span>
+              <span class="speedUnitSettingText">mph</span>
+            </button>
+          </li>
+          <li>
+            <button class="timeSetting">
+              <span class="timeSettingsIcon"></span>
+              <span class="timeText">12h</span>
             </button>
           </li>
         </ul>
@@ -82,18 +88,19 @@
         <h1 class="cityName">Kelheim, Bavaria</h1>
         <p class="currentTime">
           <span>Local time: </span>
-          <time datetime="15:45">3:45 pm</time>
+          <time class="time" datetime="15:45">3:45 pm</time>
         </p>
         <div class="mainWeatherIcon"></div>
         <p class="mainDegrees">
-          <span id="degrees">15.6</span> <span class="tempUnit">°C</span>
+          <span class="degree" id="currentDegrees">15.6</span>
+          <span class="tempUnit">°C</span>
         </p>
         <p class="weatherDesc">Partially cloudy</p>
         <div class="minmaxCont">
           <div class="minCont">
             <p class="minNumbers">
               <span class="minIcon">↓</span>
-              <span id="degreesMin">13.4</span>
+              <span id="degreesMin" class="degree">13.4</span>
               <span class="tempUnit">°C</span>
             </p>
             <p class="minDesc">Min</p>
@@ -101,7 +108,7 @@
           <div class="maxCont">
             <p class="maxNumbers">
               <span class="maxIcon">↑</span>
-              <span id="degreesMax">18.7</span>
+              <span id="degreesMax" class="degree">18.7</span>
               <span class="tempUnit">°C</span>
             </p>
             <p class="maxDesc">Max</p>
@@ -114,7 +121,8 @@
           <div class="cardDesc">
             <p class="cardTitle">Wind</p>
             <p class="cardResult">
-              <span id="wind">3.6</span> <span class="speedUnit">km/h</span>
+              <span id="wind" class="speed">3.6</span>
+              <span class="speedUnit">km/h</span>
             </p>
           </div>
         </div>
@@ -129,7 +137,7 @@
           <div class="cardIcon sunriseIcon"></div>
           <div class="cardDesc">
             <p class="cardTitle">Sunrise</p>
-            <time datetime="04:56" class="cardResult" id="sunrise"
+            <time datetime="04:56" class="cardResult time" id="sunrise"
               >4:56 AM</time
             >
           </div>
@@ -138,7 +146,9 @@
           <div class="cardIcon sunsetIcon"></div>
           <div class="cardDesc">
             <p class="cardTitle">Sunset</p>
-            <time datetime="21:03" class="cardResult" id="sunset">9:03 PM</time>
+            <time datetime="21:03" class="cardResult time" id="sunset"
+              >9:03 PM</time
+            >
           </div>
         </div>
         <div class="cardCont precipitationCont">

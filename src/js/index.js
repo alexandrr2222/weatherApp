@@ -1,3 +1,6 @@
+// animation load
+// spinner
+//
 import "../css/reset.css";
 import "../css/global.css";
 import "../css/header.css";
@@ -12,6 +15,13 @@ import {
   buildHourCards,
   buildDayCards,
 } from "./domBuilder.js";
+import {
+  celsiusToFahrenheit,
+  fahrenheitToCelsius,
+  kmhToMph,
+  mphToKmh,
+  timeConverter,
+} from "./unitConvertors.js";
 
 const settingsButton = document.querySelector(".settingsButton");
 const settingsMenu = document.querySelector(".settingsMenu");
@@ -24,12 +34,18 @@ const autocomplete = document.querySelector(".autocomplete");
 const hourlyCont = document.querySelector(".hourlyCont ul");
 const dailyCont = document.querySelector(".dailyCont ul");
 const currentLocation = document.querySelector(".currentLocation");
+const tempSetting = document.querySelector(".tempSetting");
+const tempSettingText = document.querySelector(".tempSettingText");
+const speedUnitSetting = document.querySelector(".speedUnitSetting");
+const speedUnitSettingText = document.querySelector(".speedUnitSettingText");
+const timeSetting = document.querySelector(".timeSetting");
+const timeText = document.querySelector(".timeText");
 
 const changingValues = {
   locationName: document.querySelector(".cityName"),
   localTime: document.querySelector(".currentTime time"),
   mainWeatherIcon: document.querySelector(".mainWeatherIcon"),
-  temp: document.querySelector("#degrees"),
+  temp: document.querySelector("#currentDegrees"),
   tempDesc: document.querySelector(".weatherDesc"),
   tempMin: document.querySelector("#degreesMin"),
   tempMax: document.querySelector("#degreesMax"),
@@ -66,9 +82,54 @@ function getCurrentLocation() {
       changeWeatherDOM(changingValues, returnedWeather, reformatedSearchResult);
       buildHourCards(hourlyCont, returnedWeather);
       buildDayCards(dailyCont, returnedWeather);
+      checkUnits();
     }
   });
 }
+function checkUnits() {
+  const degrees = document.querySelectorAll(".degree");
+  const tempMarkers = document.querySelectorAll(".tempUnit");
+  const speeds = document.querySelectorAll(".speed");
+  const speedMarkers = document.querySelectorAll(".speedUnit");
+  const times = document.querySelectorAll(".time");
+  if (tempSettingText.textContent === "Celsius")
+    celsiusToFahrenheit(degrees, tempMarkers);
+  if (speedUnitSettingText.textContent === "km/h")
+    kmhToMph(speeds, speedMarkers);
+  if (timeText.textContent === "24h") timeConverter(times, "12");
+}
+timeSetting.addEventListener("click", () => {
+  const times = document.querySelectorAll(".time");
+  if (timeText.textContent === "12h") {
+    timeConverter(times, "12");
+    timeText.textContent = "24h";
+  } else if (timeText.textContent === "24h") {
+    timeConverter(times, "24");
+    timeText.textContent = "12h";
+  }
+});
+tempSetting.addEventListener("click", () => {
+  const degrees = document.querySelectorAll(".degree");
+  const unitMarkers = document.querySelectorAll(".tempUnit");
+  if (tempSettingText.textContent === "Celsius") {
+    fahrenheitToCelsius(degrees, unitMarkers);
+    tempSettingText.textContent = "Fahrenheit";
+  } else if (tempSettingText.textContent === "Fahrenheit") {
+    celsiusToFahrenheit(degrees, unitMarkers);
+    tempSettingText.textContent = "Celsius";
+  }
+});
+speedUnitSetting.addEventListener("click", () => {
+  const speeds = document.querySelectorAll(".speed");
+  const unitMarkers = document.querySelectorAll(".speedUnit");
+  if (speedUnitSettingText.textContent === "km/h") {
+    mphToKmh(speeds, unitMarkers);
+    speedUnitSettingText.textContent = "mph";
+  } else if (speedUnitSettingText.textContent === "mph") {
+    kmhToMph(speeds, unitMarkers);
+    speedUnitSettingText.textContent = "km/h";
+  }
+});
 
 weatherSearch.addEventListener("input", (e) => {
   clearTimeout(timer);
@@ -97,6 +158,7 @@ weatherSearch.addEventListener("input", (e) => {
             changeWeatherDOM(changingValues, returnedWeather, selectedSearch);
             buildHourCards(hourlyCont, returnedWeather);
             buildDayCards(dailyCont, returnedWeather);
+            checkUnits();
           }
         });
       });
@@ -156,5 +218,3 @@ mainWeatherIcon.innerHTML = `<svg viewBox="0 0 128 128" fill="none" xmlns="http:
 // nobody imports from each other
 
 // ##########################################
-
-// MAIN:

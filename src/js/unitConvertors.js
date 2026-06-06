@@ -1,0 +1,54 @@
+import { parse, format } from "date-fns";
+export function celsiusToFahrenheit(degrees, unitMarkers) {
+  Array.from(degrees).forEach((degree) => {
+    const celsius = degree.textContent;
+    const fahrenheit = celsius * (9 / 5) + 32;
+    degree.textContent = Math.round(fahrenheit);
+  });
+  Array.from(unitMarkers).forEach((marker) => {
+    marker.textContent = "°F";
+  });
+}
+export function fahrenheitToCelsius(degrees, unitMarkers) {
+  Array.from(degrees).forEach((degree) => {
+    const fahrenheit = degree.textContent;
+    const celsius = (fahrenheit - 32) * (5 / 9);
+    degree.textContent = Math.round(celsius);
+  });
+  Array.from(unitMarkers).forEach((marker) => {
+    marker.textContent = "°C";
+  });
+}
+export function kmhToMph(speeds, unitMarkers) {
+  Array.from(speeds).forEach((speed) => {
+    const kmh = speed.textContent;
+    const mph = kmh / 1.609344;
+    speed.textContent = Math.round(mph);
+  });
+  Array.from(unitMarkers).forEach((marker) => {
+    marker.textContent = "mph";
+  });
+}
+export function mphToKmh(speeds, unitMarkers) {
+  Array.from(speeds).forEach((speed) => {
+    const mph = speed.textContent;
+    const kmh = mph * 1.609344;
+    speed.textContent = Math.round(kmh);
+  });
+  Array.from(unitMarkers).forEach((marker) => {
+    marker.textContent = "km/h";
+  });
+}
+export function timeConverter(times, preference) {
+  Array.from(times).forEach((time) => {
+    if (preference === "12") {
+      const currentTime = time.textContent;
+      const parsed = parse(currentTime, "HH:mm", new Date());
+      time.textContent = format(parsed, "hh:mm a");
+    } else if (preference === "24") {
+      const currentTime = time.textContent;
+      const parsed = parse(currentTime, "hh:mm a", new Date());
+      time.textContent = format(parsed, "HH:mm");
+    }
+  });
+}
