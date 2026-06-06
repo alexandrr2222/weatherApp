@@ -23,6 +23,7 @@ const weatherSearch = document.querySelector("#weatherSearch");
 const autocomplete = document.querySelector(".autocomplete");
 const hourlyCont = document.querySelector(".hourlyCont ul");
 const dailyCont = document.querySelector(".dailyCont ul");
+const currentLocation = document.querySelector(".currentLocation");
 
 const changingValues = {
   locationName: document.querySelector(".cityName"),
@@ -41,6 +42,33 @@ const changingValues = {
 };
 
 let timer;
+getCurrentLocation();
+currentLocation.addEventListener("click", () => {
+  getCurrentLocation();
+});
+function getCurrentLocation() {
+  navigator.geolocation.getCurrentPosition(async (position) => {
+    const latitude = position.coords.latitude;
+    const longitude = position.coords.longitude;
+    const reverseGeoSearch = await fetch(
+      `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`,
+    );
+    const searchResult = await reverseGeoSearch.json();
+    const reformatedSearchResult = {
+      name: searchResult.address.town,
+      region: searchResult.address.region,
+      country: searchResult.address.country,
+      latitude: position.coords.latitude,
+      longitude: position.coords.longitude,
+    };
+    const returnedWeather = await getWeatherData(latitude, longitude);
+    if (returnedWeather) {
+      changeWeatherDOM(changingValues, returnedWeather, reformatedSearchResult);
+      buildHourCards(hourlyCont, returnedWeather);
+      buildDayCards(dailyCont, returnedWeather);
+    }
+  });
+}
 
 weatherSearch.addEventListener("input", (e) => {
   clearTimeout(timer);

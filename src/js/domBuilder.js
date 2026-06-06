@@ -1,6 +1,5 @@
 import { formatInTimeZone } from "date-fns-tz";
 const DISPLAYED_HOURS = 12;
-// current location grab
 // animation load
 async function renderIcon(description, parent, night) {
   try {
@@ -28,7 +27,10 @@ export function changeWeatherDOM(DOM, data, searchData) {
   renderIcon(sluggedDescription, DOM.mainWeatherIcon, night);
   DOM.locationName.dataset.latitude = searchData.latitude;
   DOM.locationName.dataset.longitude = searchData.longitude;
-  if (searchData.name === searchData.region)
+  if (
+    searchData.name === searchData.region ||
+    (searchData.name + ", " + searchData.region).length > 25
+  )
     DOM.locationName.textContent = searchData.name;
   else
     DOM.locationName.textContent = searchData.name + ", " + searchData.region;
