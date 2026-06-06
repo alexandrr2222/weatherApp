@@ -4,7 +4,6 @@ import HtmlWebpackPlugin from "html-webpack-plugin";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
 export default {
   entry: {
     app: "./src/js/index.js",
@@ -21,7 +20,12 @@ export default {
         use: ["html-loader"],
       },
       {
-        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        test: /\.svg$/i,
+        include: path.resolve(__dirname, "src/icons/animated"),
+        type: "asset/source",
+      },
+      {
+        test: /\.(png|jpg|jpeg|gif)$/i,
         type: "asset/resource",
       },
     ],

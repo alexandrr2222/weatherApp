@@ -10,6 +10,7 @@
       href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"
       rel="stylesheet"
     />
+    <link rel="icon" href="icon.svg" type="image/svg+xml" />
   </head>
   <body>
     <div class="overlay"></div>
@@ -83,10 +84,6 @@
           <span>Local time: </span>
           <time datetime="15:45">3:45 pm</time>
         </p>
-        <p class="forecastTime">
-          <span>Forecast for: </span>
-          <time datetime="12:00 - 13:00">3 pm - 4 pm</time>
-        </p>
         <div class="mainWeatherIcon"></div>
         <p class="mainDegrees">
           <span id="degrees">15.6</span> <span class="tempUnit">°C</span>
@@ -147,15 +144,19 @@
         <div class="cardCont precipitationCont">
           <div class="cardIcon rainIcon"></div>
           <div class="cardDesc">
-            <p class="cardTitle">Rain</p>
-            <p class="cardResult" id="precipitation">13%</p>
+            <p class="cardTitle">Precipitation</p>
+            <p class="cardResult">
+              <span id="precipitation">13</span><span>%</span>
+            </p>
           </div>
         </div>
         <div class="cardCont humidityCont">
           <div class="cardIcon humidityIcon"></div>
           <div class="cardDesc">
             <p class="cardTitle">Humidity</p>
-            <p class="cardResult" id="humidity">71%</p>
+            <p class="cardResult">
+              <span id="humidity">71</span><span>%</span>
+            </p>
           </div>
         </div>
       </section>

@@ -6,9 +6,8 @@ import "../css/main.css";
 import { initStaticIcons, StaticIconData } from "./icons.js";
 import { manipulateClass } from "./helperFunctions.js";
 import { getWeatherData } from "./weatherData.js";
-import { autocompleteSearch } from "./search.js";
+import { autocompleteSearch, createSearchDOM } from "./search.js";
 import {
-  createSearchDOM,
   changeWeatherDOM,
   buildHourCards,
   buildDayCards,
@@ -42,8 +41,6 @@ const changingValues = {
 };
 
 let timer;
-buildHourCards(hourlyCont);
-buildDayCards(dailyCont, 3);
 
 weatherSearch.addEventListener("input", (e) => {
   clearTimeout(timer);
@@ -56,16 +53,27 @@ weatherSearch.addEventListener("input", (e) => {
       );
       autocompleteOptions.forEach((opt) => {
         opt.addEventListener("click", async (e) => {
+          const elementLatitude = e.target.closest("li").dataset.latitude;
+          const elementLongitude = e.target.closest("li").dataset.longitude;
+          const selectedSearch = returnedSearch.find(
+            (selected) =>
+              selected.latitude.toString() === elementLatitude &&
+              selected.longitude.toString() === elementLongitude,
+          );
+          autocomplete.innerHTML = "";
           const returnedWeather = await getWeatherData(
-            e.target.closest("li").dataset.city,
+            elementLatitude,
+            elementLongitude,
           );
           if (returnedWeather) {
-            changeWeatherDOM(changingValues, returnedWeather, "current");
+            changeWeatherDOM(changingValues, returnedWeather, selectedSearch);
+            buildHourCards(hourlyCont, returnedWeather);
+            buildDayCards(dailyCont, returnedWeather);
           }
         });
       });
     }
-  }, 500);
+  }, 0);
 });
 initStaticIcons(StaticIconData);
 manipulateClass(settingsButton, settingsMenu, "active", "toggle");

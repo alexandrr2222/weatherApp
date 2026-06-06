@@ -1,64 +1,123 @@
-export function createSearchDOM(dataObject, parent) {
-  parent.innerHTML = "";
-  dataObject.forEach((o) => {
-    const li = document.createElement("li");
-    li.role = "option";
-    li.dataset.city = o.name;
-    li.innerHTML = `<p class="autoName">${o.name}</p>
-    <p class="autoRegion">${o.region}, ${o.country}</p>`;
-    parent.append(li);
-  });
-}
-export function changeWeatherDOM(DOM, data, currentD, currentH) {
-  let currentDay;
-  let currentHour;
-  if (currentD === "current") {
-    currentDay = 0;
-    currentHour = data.location.localTime.slice(-5, -3);
-  } else {
-    currentDay = currentD;
-    // tady do currentu pujde data-day
-    currentHour = 12;
-    // a pokud klikame na den tak automaticky hour 12
+import { formatInTimeZone } from "date-fns-tz";
+const DISPLAYED_HOURS = 12;
+// current location grab
+// animation load
+async function renderIcon(description, parent, night) {
+  try {
+    const icon = await import(`../icons/animated/${description}${night}.svg`);
+    parent.innerHTML = icon.default;
+    const svg = parent.querySelector("svg");
+    const clone = svg.cloneNode(true);
+    svg.replaceWith(clone);
+  } catch {
+    const icon = await import(`../icons/animated/${description}.svg`);
+    parent.innerHTML = icon.default;
+    const svg = parent.querySelector("svg");
+    const clone = svg.cloneNode(true);
+    svg.replaceWith(clone);
   }
-  console.log(currentDay, currentHour);
-  console.log(data);
-  DOM.locationName.textContent = data.location.name;
-  DOM.localTime.textContent = data.location.localTime.slice(-5);
-
-  DOM.temp.textContent = data.days[currentDay].hours[currentHour].temp;
-  DOM.tempDesc.textContent =
-    data.days[currentDay].hours[currentHour].description;
-  DOM.tempMin.textContent = data.days[currentDay].minTemp;
-  DOM.tempMax.textContent = data.days[currentDay].maxTemp;
-  DOM.wind.textContent = data.days[currentDay].hours[currentHour].wind;
-  DOM.uvIndex.textContent = data.days[currentDay].hours[currentHour].uv;
-  DOM.sunrise.textContent = data.days[currentDay].sunrise;
-  DOM.sunset.textContent = data.days[currentDay].sunset;
-  DOM.rain.textContent = data.days[currentDay].hours[currentHour].rain;
-  DOM.humidity.textContent = data.days[currentDay].hours[currentHour].humidity;
-  //   if have dataset day or dataset hour do x
 }
+export function changeWeatherDOM(DOM, data, searchData) {
+  let currentHour = formatInTimeZone(new Date(), data.timezone, "HH");
+  if (currentHour[0] === "0") currentHour = currentHour.slice(1);
+  let night = "";
+  if (!data.current.is_day) night = "_night";
+  const sluggedDescription = weatherConditions[data.current.weather_code]
+    .toLowerCase()
+    .replace(/\s+/g, "_");
+  renderIcon(sluggedDescription, DOM.mainWeatherIcon, night);
+  DOM.locationName.dataset.latitude = searchData.latitude;
+  DOM.locationName.dataset.longitude = searchData.longitude;
+  if (searchData.name === searchData.region)
+    DOM.locationName.textContent = searchData.name;
+  else
+    DOM.locationName.textContent = searchData.name + ", " + searchData.region;
+  DOM.localTime.textContent = formatInTimeZone(
+    new Date(),
+    data.timezone,
+    "HH:mm",
+  );
+  DOM.temp.textContent = data.current.temperature_2m;
+  DOM.tempDesc.textContent = weatherConditions[data.current.weather_code];
+  DOM.tempMin.textContent = data.daily.temperature_2m_min[0];
+  DOM.tempMax.textContent = data.daily.temperature_2m_max[0];
+  DOM.wind.textContent = data.current.wind_speed_10m;
+  DOM.uvIndex.textContent = data.hourly.uv_index[currentHour];
+  DOM.sunrise.textContent = data.daily.sunrise[0].slice(-5);
+  DOM.sunset.textContent = data.daily.sunset[0].slice(-5);
+  DOM.rain.textContent = data.current.precipitation;
+  DOM.humidity.textContent = data.current.relative_humidity_2m;
+}
+const weatherConditions = {
+  0: "Clear sky",
+  1: "Mainly clear",
+  2: "Partly cloudy",
+  3: "Overcast",
+  45: "Fog",
+  48: "Rime fog",
+  51: "Light drizzle",
+  53: "Moderate drizzle",
+  55: "Dense drizzle",
+  56: "Light freezing drizzle",
+  57: "Dense freezing drizzle",
+  61: "Slight rain",
+  63: "Moderate rain",
+  65: "Heavy rain",
+  66: "Light freezing rain",
+  67: "Heavy freezing rain",
+  71: "Slight snowfall",
+  73: "Moderate snowfall",
+  75: "Heavy snowfall",
+  77: "Snow grains",
+  80: "Slight rain showers",
+  81: "Moderate rain showers",
+  82: "Violent rain showers",
+  85: "Slight snow showers",
+  86: "Heavy snow showers",
+  95: "Thunderstorm",
+  96: "Thunderstorm with slight hail",
+  99: "Thunderstorm with heavy hail",
+};
 
-export function buildHourCards(parent) {
-  for (let i = 0; i < 24; i++) {
+export function buildHourCards(parent, weather) {
+  parent.innerHTML = "";
+  let currentHour = formatInTimeZone(new Date(), weather.timezone, "HH");
+  if (currentHour[0] === "0") currentHour = currentHour.slice(1);
+  let ii = 0;
+  let night;
+  let checkedHour = Number(currentHour) + 1;
+  for (let i = 0; i < DISPLAYED_HOURS; i++) {
+    if (Number(checkedHour) + ii > 23) {
+      checkedHour = 0;
+      ii = 0;
+    }
     const li = document.createElement("li");
-    li.dataset.hour = i;
-    let currentHour;
-    if (i < 12) currentHour = i + 1 + " AM";
-    else currentHour = i - 12 + 1 + " PM";
     li.innerHTML = `
-        <time datetime="" class="timeHour">${currentHour}</time>
-        <div class="weatherHourIcon"></div>
+        <time datetime="" class="timeHour">${Number(checkedHour) + ii}:00</time>
+        <div class="weatherHourIcon${i}"></div>
         <p class="temperatureHour">
-            <span class="hourTemp">20 </span>
+            <span class="hourTemp">${weather.hourly.temperature_2m[Number(currentHour) + i + 1]} </span>
             <span class="tempUnit">°C</span>
         </p>`;
     parent.append(li);
+    night = "";
+    if (!weather.hourly.is_day[Number(currentHour) + i + 1]) night = "_night";
+    const sluggedDescription = weatherConditions[
+      weather.hourly.weather_code[Number(currentHour) + i + 1]
+    ]
+      .toLowerCase()
+      .replace(/\s+/g, "_");
+    renderIcon(
+      sluggedDescription,
+      document.querySelector(`.weatherHourIcon${i}`),
+      night,
+    );
+    ii++;
   }
 }
-export function buildDayCards(parent, days) {
-  for (let i = 0; i < days; i++) {
+export function buildDayCards(parent, weather) {
+  parent.innerHTML = "";
+  for (let i = 0; i < 6; i++) {
     const li = document.createElement("li");
     li.dataset.day = i;
     li.innerHTML = `
@@ -72,9 +131,3 @@ export function buildDayCards(parent, days) {
     parent.append(li);
   }
 }
-
-// currentLocation a input > location a current
-// hour
-//
-// day
-// bude mit event listener > na nej kliknes rekne ti dataset pres (e) > volas construction funkci a vkladas do ni dataset 0,1,2 podle toho pak selectujes rendr napr object.days[0] + vzdycky data z 12 hodiny

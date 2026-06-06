@@ -8,19 +8,21 @@ main {
 }
 .cityName {
   font-family: "Cormorant Garamond", serif;
-  font-size: 3rem;
+  font-size: 2rem;
   font-weight: bold;
   margin-top: -0.5rem;
-  margin-bottom: -1rem;
+  margin-bottom: 0.25rem;
 }
 .currentTime {
   font-family: "Cormorant Garamond", serif;
   font-weight: bold;
   color: var(--text-muted);
-  font-size: 2rem;
+  font-size: 1.5rem;
+  margin-bottom: -0rem;
 }
+
 .mainWeatherIcon svg {
-  height: 8rem;
+  height: 10rem;
   width: auto;
   margin-bottom: -1rem;
 }

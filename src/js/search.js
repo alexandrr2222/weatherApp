@@ -1,7 +1,7 @@
 export async function autocompleteSearch(search) {
   try {
     const response = await fetch(
-      `https://api.weatherapi.com/v1/search.json?key=c284ebc64e014691990183005260306&q=${search}`,
+      `https://geocoding-api.open-meteo.com/v1/search?name=${search}&count=5&language=en&format=json`,
     );
     const responseData = await response.json();
     return createSearchObject(responseData);
@@ -10,9 +10,23 @@ export async function autocompleteSearch(search) {
   }
 }
 function createSearchObject(responseData) {
-  return responseData.map((s) => ({
-    name: s.name,
-    region: s.region,
-    country: s.country,
+  return responseData.results.map((r) => ({
+    name: r.name,
+    region: r.admin1,
+    country: r.country,
+    latitude: r.latitude,
+    longitude: r.longitude,
   }));
+}
+export function createSearchDOM(dataObject, parent) {
+  parent.innerHTML = "";
+  dataObject.forEach((o) => {
+    const li = document.createElement("li");
+    li.role = "option";
+    li.dataset.latitude = o.latitude;
+    li.dataset.longitude = o.longitude;
+    li.innerHTML = `<p class="autoName">${o.name}</p>
+    <p class="autoRegion">${o.region}, ${o.country}</p>`;
+    parent.append(li);
+  });
 }
