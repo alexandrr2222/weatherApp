@@ -1,0 +1,763 @@
+/*! modern-normalize v3.0.1 | MIT License | https://github.com/sindresorhus/modern-normalize */
+
+/*
+Document
+========
+*/
+
+/**
+Use a better box model (opinionated).
+*/
+
+*,
+::before,
+::after {
+	box-sizing: border-box;
+}
+
+html {
+	/* Improve consistency of default fonts in all browsers. (https://github.com/sindresorhus/modern-normalize/issues/3) */
+	font-family:
+		system-ui,
+		'Segoe UI',
+		Roboto,
+		Helvetica,
+		Arial,
+		sans-serif,
+		'Apple Color Emoji',
+		'Segoe UI Emoji';
+	line-height: 1.15; /* 1. Correct the line height in all browsers. */
+	-webkit-text-size-adjust: 100%; /* 2. Prevent adjustments of font size after orientation changes in iOS. */
+	tab-size: 4; /* 3. Use a more readable tab size (opinionated). */
+}
+
+/*
+Sections
+========
+*/
+
+body {
+	margin: 0; /* Remove the margin in all browsers. */
+}
+
+/*
+Text-level semantics
+====================
+*/
+
+/**
+Add the correct font weight in Chrome and Safari.
+*/
+
+b,
+strong {
+	font-weight: bolder;
+}
+
+/**
+1. Improve consistency of default fonts in all browsers. (https://github.com/sindresorhus/modern-normalize/issues/3)
+2. Correct the odd 'em' font sizing in all browsers.
+*/
+
+code,
+kbd,
+samp,
+pre {
+	font-family:
+		ui-monospace,
+		SFMono-Regular,
+		Consolas,
+		'Liberation Mono',
+		Menlo,
+		monospace; /* 1 */
+	font-size: 1em; /* 2 */
+}
+
+/**
+Add the correct font size in all browsers.
+*/
+
+small {
+	font-size: 80%;
+}
+
+/**
+Prevent 'sub' and 'sup' elements from affecting the line height in all browsers.
+*/
+
+sub,
+sup {
+	font-size: 75%;
+	line-height: 0;
+	position: relative;
+	vertical-align: baseline;
+}
+
+sub {
+	bottom: -0.25em;
+}
+
+sup {
+	top: -0.5em;
+}
+
+/*
+Tabular data
+============
+*/
+
+/**
+Correct table border color inheritance in Chrome and Safari. (https://issues.chromium.org/issues/40615503, https://bugs.webkit.org/show_bug.cgi?id=195016)
+*/
+
+table {
+	border-color: currentcolor;
+}
+
+/*
+Forms
+=====
+*/
+
+/**
+1. Change the font styles in all browsers.
+2. Remove the margin in Firefox and Safari.
+*/
+
+button,
+input,
+optgroup,
+select,
+textarea {
+	font-family: inherit; /* 1 */
+	font-size: 100%; /* 1 */
+	line-height: 1.15; /* 1 */
+	margin: 0; /* 2 */
+}
+
+/**
+Correct the inability to style clickable types in iOS and Safari.
+*/
+
+button,
+[type='button'],
+[type='reset'],
+[type='submit'] {
+	-webkit-appearance: button;
+}
+
+/**
+Remove the padding so developers are not caught out when they zero out 'fieldset' elements in all browsers.
+*/
+
+legend {
+	padding: 0;
+}
+
+/**
+Add the correct vertical alignment in Chrome and Firefox.
+*/
+
+progress {
+	vertical-align: baseline;
+}
+
+/**
+Correct the cursor style of increment and decrement buttons in Safari.
+*/
+
+::-webkit-inner-spin-button,
+::-webkit-outer-spin-button {
+	height: auto;
+}
+
+/**
+1. Correct the odd appearance in Chrome and Safari.
+2. Correct the outline style in Safari.
+*/
+
+[type='search'] {
+	-webkit-appearance: textfield; /* 1 */
+	outline-offset: -2px; /* 2 */
+}
+
+/**
+Remove the inner padding in Chrome and Safari on macOS.
+*/
+
+::-webkit-search-decoration {
+	-webkit-appearance: none;
+}
+
+/**
+1. Correct the inability to style clickable types in iOS and Safari.
+2. Change font properties to 'inherit' in Safari.
+*/
+
+::-webkit-file-upload-button {
+	-webkit-appearance: button; /* 1 */
+	font: inherit; /* 2 */
+}
+
+/*
+Interactive
+===========
+*/
+
+/*
+Add the correct display in Chrome and Safari.
+*/
+
+summary {
+	display: list-item;
+}
+
+:root {
+  line-height: 1.5;
+}
+
+h1, h2, h3, h4, h5, figure, p, ol, ul {
+  margin: 0;
+}
+
+ol[role="list"], ul[role="list"] {
+  list-style: none;
+  padding-inline: 0;
+}
+
+h1, h2, h3, h4, h5 {
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+img {
+  display: block;
+  max-inline-size: 100%;
+}
+:root {
+  --bg: #1a1614;
+  --header-bg: #201c18;
+  --nav-bg: #1e1a16;
+  --surface: #2a2420;
+  --surface-hover: #332c26;
+  --text: #e8e0d6;
+  --text-muted: #9c9185;
+  --accent: #a66537f6;
+  --accent-hover: #d4a57a;
+  --divider: #3a3028;
+  --shadow: rgba(0, 0, 0, 0.35);
+  --overlay: rgba(10, 8, 7, 0.6);
+  --radius: 0.375rem;
+  --transition: 0.25s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+body {
+  font-family: "DM Sans", serif;
+  background: var(--bg);
+  color: var(--text);
+}
+ul li {
+  list-style: none;
+}
+ul {
+  padding: 0;
+}
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--header-bg);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  height: 10vh;
+  padding: 0 0.75rem;
+  box-shadow: 0 2px 12px var(--shadow);
+}
+header button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  flex-shrink: 0;
+}
+header button svg {
+  width: 1.6rem;
+  height: auto;
+  color: var(--accent);
+  transition: color var(--transition);
+}
+
+header button:hover svg {
+  color: var(--accent-hover);
+}
+
+.searchCont {
+  flex: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.searchIcon,
+.closeIcon {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.searchIcon {
+  left: 0.75rem;
+}
+
+.searchIcon svg {
+  width: 1rem;
+  height: 1rem;
+  color: var(--text-muted);
+  transition: color var(--transition);
+}
+
+.closeIcon {
+  right: 0.75rem;
+  pointer-events: auto;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+
+.closeIcon svg {
+  width: 1rem;
+  height: 1rem;
+  color: var(--text-muted);
+  transition: color var(--transition);
+}
+
+.closeIcon:hover svg {
+  color: var(--accent);
+}
+
+.searchCont:focus-within .closeIcon {
+  opacity: 1;
+}
+
+.searchCont:focus-within .searchIcon svg {
+  color: var(--accent);
+}
+.inputCont {
+  width: 100%;
+  height: 2.5rem;
+  position: relative;
+}
+.autocomplete {
+  position: absolute;
+}
+.searchbar {
+  width: 100%;
+  height: 100%;
+  padding: 0 2.5rem;
+  background: var(--surface);
+  border: 1px solid transparent;
+  border-radius: 2rem;
+  color: var(--text);
+  font-size: 0.85rem;
+  outline: none;
+  transition:
+    border-color var(--transition),
+    background-color var(--transition);
+}
+.searchbar::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  display: none;
+}
+
+.searchbar::placeholder {
+  color: var(--text-muted);
+  /* font-style: italic; */
+  font-family: "DM Sans", serif;
+  font-size: 0.9rem;
+}
+
+.searchbar:focus {
+  border-color: var(--accent);
+  background-color: var(--surface-hover);
+}
+
+.settingsMenu {
+  flex-direction: column;
+  position: absolute;
+  top: 3.7rem;
+  right: 0.5rem;
+  background: var(--surface);
+  border: 1px solid var(--divider);
+  border-radius: var(--radius);
+  padding: 0.4rem;
+  z-index: 11;
+  box-shadow: 0 8px 24px var(--shadow);
+  min-width: 10rem;
+  max-height: 0;
+  opacity: 0;
+  padding-bottom: 0;
+  overflow: hidden;
+  transition:
+    max-height 0.3s ease-out,
+    opacity 0.1s ease-out,
+    padding-bottom 0.3s ease-out;
+  list-style: none;
+}
+.settingsMenu.active {
+  display: flex;
+  max-height: 20rem;
+  opacity: 1;
+  padding-bottom: 0.4rem;
+}
+.settingsMenu .menuLabel:last-of-type {
+  border-top: 1px solid var(--divider);
+  padding-top: 0.4rem;
+}
+.settingsMenu ul li button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 0.5rem;
+  padding: 0.6rem 0.65rem;
+  background: none;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  color: var(--text);
+  font-size: 0.85rem;
+  transition: background-color var(--transition);
+}
+
+.settingsMenu ul li button:hover {
+  background-color: var(--surface-hover);
+}
+
+.settingsMenu ul li button svg {
+  width: 1.1rem;
+  height: auto;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+.menuLabel {
+  letter-spacing: 0.03rem;
+  font-family: "Cormorant Garamond", "Times New Roman", Times, serif;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+.starIconEmpty {
+  display: none;
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--overlay);
+  z-index: 12;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition);
+}
+.overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 16rem;
+  height: 100vh;
+  background: var(--nav-bg);
+  z-index: 20;
+  padding: 1.5rem 1rem;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+}
+
+nav.active {
+  transform: translateX(0);
+  box-shadow: 4px 0 20px var(--shadow);
+}
+
+.favMenuLabel {
+  text-align: start;
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 500;
+  font-size: 1.5rem;
+  color: var(--text);
+  letter-spacing: 0.02rem;
+  padding: 0;
+}
+
+.dividerLine {
+  height: 2px;
+  background: var(--text-muted);
+  margin: 0.5rem 0;
+}
+.dividerLineIcon {
+  height: 1rem;
+  width: 100%;
+  align-self: center;
+}
+.dividerLineIcon svg {
+  height: 100%;
+  width: 100%;
+}
+
+.favList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.favList button {
+  width: 100%;
+  text-align: left;
+  padding: 0.6rem 0.75rem;
+  background: none;
+  border: none;
+  border-radius: var(--radius);
+  color: var(--text);
+  font-family: "Literata", serif;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition:
+    background-color var(--transition),
+    color var(--transition);
+}
+
+.favList button:hover {
+  background-color: var(--surface);
+  color: var(--accent);
+}
+
+main {
+  position: relative;
+  padding: 1.5rem;
+}
+.time {
+  text-transform: lowercase;
+}
+.summaryCont {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.cityName {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-top: -0.5rem;
+  margin-bottom: 0.25rem;
+}
+.currentTime {
+  font-family: "Cormorant Garamond", serif;
+  font-weight: bold;
+  color: var(--text-muted);
+  font-size: 1.5rem;
+  margin-bottom: -0rem;
+}
+
+.mainWeatherIcon img {
+  height: 10rem;
+  width: auto;
+  margin-bottom: -1rem;
+}
+.mainDegrees {
+  font-size: 5rem;
+  font-weight: 400;
+  margin-bottom: -1.5rem;
+}
+.weatherDesc {
+  color: var(--text-muted);
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+.minmaxCont {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+.minIcon,
+.maxIcon {
+  font-size: 1rem;
+  vertical-align: super;
+}
+.minCont,
+.maxCont {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.minNumbers,
+.maxNumbers {
+  font-size: 2rem;
+  margin-bottom: -0.4rem;
+}
+.minDesc,
+.maxDesc {
+  color: var(--text-muted);
+  font-size: 1rem;
+}
+.detailsCont {
+  margin-top: 1.5rem;
+  display: grid;
+  justify-content: space-evenly;
+  gap: 0.75rem;
+  grid-template-areas:
+    "wind UV"
+    "sunrise sunset"
+    "rain humidity";
+}
+.cardCont {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.windCont {
+  grid-area: wind;
+}
+.uvCont {
+  grid-area: UV;
+}
+.sunriseCont {
+  grid-area: sunrise;
+}
+.sunsetCont {
+  grid-area: sunset;
+}
+.precipitationCont {
+  grid-area: rain;
+}
+.humidityCont {
+  grid-area: humidity;
+}
+.windCont .cardIcon svg {
+  color: #8bb8c4;
+}
+.uvCont .cardIcon svg {
+  color: #d4a054;
+}
+.sunriseCont .cardIcon svg {
+  color: #e8b84a;
+}
+.sunsetCont .cardIcon svg {
+  color: #c47a3a;
+}
+.precipitationCont .cardIcon svg {
+  color: #6b9fc4;
+}
+.humidityCont .cardIcon svg {
+  color: #7ab5a0;
+}
+.cardIcon img {
+  max-width: 100%;
+  max-height: 100%;
+}
+.cardIcon {
+  height: 1.5rem;
+  width: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+}
+.cardTitle {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 0.125rem;
+}
+
+.cardResult {
+  margin-top: -0.1rem;
+  font-size: 1rem;
+  color: var(--text);
+  font-weight: 500;
+  display: block;
+}
+.hourlyCont {
+  margin-top: 3rem;
+  overflow: hidden;
+}
+.hourlyCont ul {
+  display: flex;
+  gap: 0.5rem;
+}
+.hourlyCont ul li {
+  padding: 0.3rem;
+  background-color: var(--divider);
+}
+.dailyCont {
+  margin-top: 3rem;
+}
+.dailyCont ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.dailyCont ul li {
+  padding: 0.6rem;
+  background-color: var(--divider);
+}
+.loadScreen {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--bg);
+  z-index: 8;
+}
+.hidden {
+  display: none;
+}
+body:has(.loadScreen:not(.hidden)) {
+  overflow: hidden;
+}
+.loadingText {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+.loader {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: inline-block;
+  border-top: 4px solid var(--text-muted);
+  border-right: 4px solid transparent;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+.loader::after {
+  content: "";
+  box-sizing: border-box;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border-bottom: 4px solid var(--accent);
+  border-left: 4px solid transparent;
+}
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
