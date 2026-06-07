@@ -25,7 +25,6 @@ import {
   mphToKmh,
   timeConverter,
 } from "./unitConvertors.js";
-
 const settingsButton = document.querySelector(".settingsButton");
 const settingsMenu = document.querySelector(".settingsMenu");
 const favBoxIcon = document.querySelector(".favBoxIcon");
@@ -53,6 +52,7 @@ let favoritePlaces = [];
 const LOADER_TIMEOUT = 600;
 loadSettings();
 loadFavorites();
+getCurrentLocation();
 favoriteThisButton.addEventListener("click", () => {
   const cityName = document.querySelector(".cityName");
   let formattedName;
@@ -192,7 +192,7 @@ function saveFavorites() {
   localStorage.setItem("favObject", JSON.stringify(favoritePlaces));
 }
 function loadFavorites() {
-  const favObject = JSON.parse(localStorage.getItem("favObject"));
+  const favObject = JSON.parse(localStorage.getItem("favObject") || []);
   favoritePlaces = favObject;
   if (!favObject) return;
   favList.innerHTML = "";
@@ -257,11 +257,13 @@ function loadFavorites() {
 }
 
 let timer;
-getCurrentLocation();
+
 currentLocation.addEventListener("click", () => {
   getCurrentLocation();
 });
+
 function getCurrentLocation() {
+  if (!navigator.geolocation) return;
   navigator.geolocation.getCurrentPosition(async (position) => {
     const latitude = position.coords.latitude;
     const longitude = position.coords.longitude;
@@ -406,7 +408,7 @@ closeIcon.addEventListener("click", () => {
 closeIcon.addEventListener("mousedown", (e) => {
   e.preventDefault();
 });
-// ####### maybe not needed with miniCSS
+
 nav.style.transition = "none";
 requestAnimationFrame(() => {
   nav.style.transition = "";

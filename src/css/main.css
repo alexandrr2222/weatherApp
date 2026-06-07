@@ -144,10 +144,10 @@ main {
 }
 .hourlyCont {
   margin-top: 3rem;
+  overflow: hidden;
 }
 .hourlyCont ul {
   display: flex;
-  flex-wrap: wrap;
   gap: 0.5rem;
 }
 .hourlyCont ul li {
