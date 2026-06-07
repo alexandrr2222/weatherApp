@@ -172,11 +172,9 @@ header button:hover svg {
   font-size: 0.85rem;
   transition: background-color var(--transition);
 }
-
 .settingsMenu ul li button:hover {
   background-color: var(--surface-hover);
 }
-
 .settingsMenu ul li button svg {
   width: 1.1rem;
   height: auto;
@@ -191,4 +189,40 @@ header button:hover svg {
 }
 .starIconEmpty {
   display: none;
+}
+.autocomplete {
+  position: absolute;
+  top: 100%;
+  min-height: 0;
+  background: var(--surface);
+  border-radius: var(--radius);
+  box-shadow: 0 8px 24px var(--shadow);
+  overflow: hidden;
+  z-index: 50;
+  width: 100%;
+  margin-top: 0.25rem;
+}
+.autocomplete:has(li) {
+  border: 1px solid var(--divider);
+}
+.autocomplete li {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: background-color var(--transition);
+  border-bottom: 1px solid var(--divider);
+}
+.autocomplete li:last-child {
+  border-bottom: none;
+}
+.autocomplete li:hover {
+  background-color: var(--surface-hover);
+}
+.autoName {
+  font-size: 0.9rem;
+  color: var(--text);
+  margin-bottom: -0.1rem;
+}
+.autoRegion {
+  font-size: 0.75rem;
+  color: var(--text-muted);
 }

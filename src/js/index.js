@@ -1,4 +1,10 @@
 // implement days
+// error msg on fail load
+// guardrails against clicking options menu while api loading
+// display localtime only when it doesnt fit u
+// trim hours for am/pm
+// sometimes fetches different name
+// menu polish
 
 // refactor and especially modulate code
 // detail changer for hours
@@ -34,6 +40,7 @@ const closeIcon = document.querySelector(".closeIcon");
 const weatherSearch = document.querySelector("#weatherSearch");
 const autocomplete = document.querySelector(".autocomplete");
 const hourlyCont = document.querySelector(".hourlyCont ul");
+const hourlyContReal = document.querySelector(".hourlyCont");
 const dailyCont = document.querySelector(".dailyCont ul");
 const currentLocation = document.querySelector(".currentLocation");
 const tempSetting = document.querySelector(".tempSetting");
@@ -48,11 +55,18 @@ const starIconFull = document.querySelector(".starIconFull");
 const starIconEmpty = document.querySelector(".starIconEmpty");
 const favList = document.querySelector(".favList");
 const loadScreen = document.querySelector(".loadScreen");
+const searchCont = document.querySelector(".searchCont");
 let favoritePlaces = [];
 const LOADER_TIMEOUT = 600;
 loadSettings();
 loadFavorites();
 getCurrentLocation();
+document.addEventListener("click", (e) => {
+  const btn = e.target.closest(".favList li");
+  if (!btn) return;
+  nav.classList.remove("active");
+  overlay.classList.remove("active");
+});
 favoriteThisButton.addEventListener("click", () => {
   const cityName = document.querySelector(".cityName");
   let formattedName;
@@ -120,6 +134,8 @@ favoriteThisButton.addEventListener("click", () => {
         buildDayCards(dailyCont, returnedWeather);
         checkUnits();
         checkFavorite(latitude, longitude);
+        window.scrollTo(0, 0);
+        hourlyContReal.scrollLeft = 0;
       }
     });
   } else if (favoriteThisText.textContent === "Unfavorite") {
@@ -192,9 +208,9 @@ function saveFavorites() {
   localStorage.setItem("favObject", JSON.stringify(favoritePlaces));
 }
 function loadFavorites() {
-  const favObject = JSON.parse(localStorage.getItem("favObject") || []);
+  const favObject = JSON.parse(localStorage.getItem("favObject") || "[]");
   favoritePlaces = favObject;
-  if (!favObject) return;
+
   favList.innerHTML = "";
   favObject.forEach((fav) => {
     const li = document.createElement("li");
@@ -251,6 +267,8 @@ function loadFavorites() {
         buildDayCards(dailyCont, returnedWeather);
         checkUnits();
         checkFavorite(latitude, longitude);
+        window.scrollTo(0, 0);
+        hourlyContReal.scrollLeft = 0;
       }
     });
   });
@@ -302,6 +320,8 @@ function getCurrentLocation() {
       buildDayCards(dailyCont, returnedWeather);
       checkUnits();
       checkFavorite(latitude, longitude);
+      window.scrollTo(0, 0);
+      hourlyContReal.scrollLeft = 0;
     }
   });
 }
@@ -387,6 +407,8 @@ weatherSearch.addEventListener("input", (e) => {
             buildDayCards(dailyCont, returnedWeather);
             checkUnits();
             checkFavorite(selectedSearch.latitude, selectedSearch.longitude);
+            window.scrollTo(0, 0);
+            hourlyContReal.scrollLeft = 0;
           }
         });
       });
@@ -401,9 +423,12 @@ document.addEventListener("click", (e) => {
   if (!settingsMenu.contains(e.target) && !settingsButton.contains(e.target)) {
     settingsMenu.classList.remove("active");
   }
+  if (!autocomplete.contains(e.target) && !searchCont.contains(e.target))
+    autocomplete.innerHTML = "";
 });
 closeIcon.addEventListener("click", () => {
   weatherSearch.value = "";
+  autocomplete.innerHTML = "";
 });
 closeIcon.addEventListener("mousedown", (e) => {
   e.preventDefault();

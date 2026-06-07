@@ -143,16 +143,58 @@ main {
   display: block;
 }
 .hourlyCont {
-  margin-top: 3rem;
-  overflow: hidden;
+  margin-top: 2rem;
+  overflow-x: auto;
+}
+.hourlyCont::-webkit-scrollbar {
+  height: 3px;
+}
+
+.hourlyCont::-webkit-scrollbar-track {
+  background: var(--surface);
+}
+
+.hourlyCont::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 2px;
 }
 .hourlyCont ul {
   display: flex;
   gap: 0.5rem;
+  padding-bottom: 0.5rem;
 }
 .hourlyCont ul li {
-  padding: 0.3rem;
-  background-color: var(--divider);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.8rem 0.6rem;
+  background: var(--surface);
+  border-radius: var(--radius);
+  min-width: 4.75rem;
+  flex-shrink: 0;
+}
+.timeHour {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+.whIcon {
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.whIcon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.temperatureHour {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text);
+  white-space: nowrap;
 }
 .dailyCont {
   margin-top: 3rem;

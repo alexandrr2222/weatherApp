@@ -92,7 +92,7 @@ export function buildHourCards(parent, weather) {
     const li = document.createElement("li");
     li.innerHTML = `
         <time datetime="" class="timeHour time">${Number(checkedHour) + ii}:00</time>
-        <div class="weatherHourIcon${i}"></div>
+        <div class="whIcon weatherHourIcon${i}"></div>
         <p class="temperatureHour">
             <span class="hourTemp degree">${Math.round(weather.hourly.temperature_2m[Number(currentHour) + i + 1])} </span>
             <span class="tempUnit">°C</span>
