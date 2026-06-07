@@ -1,4 +1,5 @@
 main {
+  position: relative;
   padding: 1.5rem;
 }
 .time {
@@ -24,7 +25,7 @@ main {
   margin-bottom: -0rem;
 }
 
-.mainWeatherIcon svg {
+.mainWeatherIcon img {
   height: 10rem;
   width: auto;
   margin-bottom: -1rem;
@@ -116,7 +117,7 @@ main {
 .humidityCont .cardIcon svg {
   color: #7ab5a0;
 }
-.cardIcon svg {
+.cardIcon img {
   max-width: 100%;
   max-height: 100%;
 }
@@ -164,4 +165,54 @@ main {
 .dailyCont ul li {
   padding: 0.6rem;
   background-color: var(--divider);
+}
+.loadScreen {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--bg);
+  z-index: 8;
+}
+.hidden {
+  display: none;
+}
+body:has(.loadScreen:not(.hidden)) {
+  overflow: hidden;
+}
+.loadingText {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+.loader {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: inline-block;
+  border-top: 4px solid var(--text-muted);
+  border-right: 4px solid transparent;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+.loader::after {
+  content: "";
+  box-sizing: border-box;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border-bottom: 4px solid var(--accent);
+  border-left: 4px solid transparent;
+}
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

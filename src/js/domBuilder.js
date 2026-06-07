@@ -1,19 +1,15 @@
 import { formatInTimeZone } from "date-fns-tz";
 const DISPLAYED_HOURS = 12;
-async function renderIcon(description, parent, night) {
-  try {
-    const icon = await import(`../icons/animated/${description}${night}.svg`);
-    parent.innerHTML = icon.default;
-    const svg = parent.querySelector("svg");
-    const clone = svg.cloneNode(true);
-    svg.replaceWith(clone);
-  } catch {
-    const icon = await import(`../icons/animated/${description}.svg`);
-    parent.innerHTML = icon.default;
-    const svg = parent.querySelector("svg");
-    const clone = svg.cloneNode(true);
-    svg.replaceWith(clone);
-  }
+
+function renderIcon(description, parent, night) {
+  parent.innerHTML = "";
+  const img = document.createElement("img");
+  img.src = `./icons/animated/${description}${night}.svg`;
+  img.onerror = () => {
+    img.onerror = null;
+    img.src = `./icons/animated/${description}.svg`;
+  };
+  parent.append(img);
 }
 export function changeWeatherDOM(DOM, data, searchData) {
   let currentHour = formatInTimeZone(new Date(), data.timezone, "HH");
@@ -28,7 +24,7 @@ export function changeWeatherDOM(DOM, data, searchData) {
   DOM.locationName.dataset.longitude = searchData.longitude;
   if (
     searchData.name === searchData.region ||
-    (searchData.name + ", " + searchData.region).length > 25 ||
+    (searchData.name + ", " + searchData.region).length > 22 ||
     searchData.region === undefined
   )
     DOM.locationName.textContent = searchData.name;

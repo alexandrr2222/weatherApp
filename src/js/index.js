@@ -1,7 +1,4 @@
-// animation load , especially sun
-// localStorage
 // implement days
-// spinner
 
 // refactor and especially modulate code
 // detail changer for hours
@@ -51,8 +48,11 @@ const favoriteThisText = document.querySelector(".favoriteThisText");
 const starIconFull = document.querySelector(".starIconFull");
 const starIconEmpty = document.querySelector(".starIconEmpty");
 const favList = document.querySelector(".favList");
-const favoritePlaces = [];
-
+const loadScreen = document.querySelector(".loadScreen");
+let favoritePlaces = [];
+const LOADER_TIMEOUT = 600;
+loadSettings();
+loadFavorites();
 favoriteThisButton.addEventListener("click", () => {
   const cityName = document.querySelector(".cityName");
   let formattedName;
@@ -81,10 +81,15 @@ favoriteThisButton.addEventListener("click", () => {
     });
     favList.append(li);
     li.addEventListener("click", async () => {
+      loadScreen.classList.remove("hidden");
       const reverseGeoSearch = await fetch(
         `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`,
       );
       const searchResult = await reverseGeoSearch.json();
+      setTimeout(() => {
+        loadScreen.classList.add("hidden");
+      }, LOADER_TIMEOUT);
+
       let name;
       let region;
       const ourObject = favoritePlaces.find(
@@ -130,6 +135,7 @@ favoriteThisButton.addEventListener("click", () => {
     targetCity.remove();
     favoritePlaces.splice(foundIndex, 1);
   }
+  saveFavorites();
 });
 
 function checkFavorite(latitude, longitude) {
@@ -164,6 +170,92 @@ const changingValues = {
   humidity: document.querySelector("#humidity"),
 };
 
+function saveSettings() {
+  const settings = {
+    tempSettingText: document.querySelector(".tempSettingText").textContent,
+    speedUnitSettingText: document.querySelector(".speedUnitSettingText")
+      .textContent,
+    timeText: document.querySelector(".timeText").textContent,
+  };
+  localStorage.setItem("settings", JSON.stringify(settings));
+}
+function loadSettings() {
+  const settings = JSON.parse(localStorage.getItem("settings"));
+  if (!settings) return;
+  document.querySelector(".tempSettingText").textContent =
+    settings.tempSettingText;
+  document.querySelector(".speedUnitSettingText").textContent =
+    settings.speedUnitSettingText;
+  document.querySelector(".timeText").textContent = settings.timeText;
+}
+function saveFavorites() {
+  localStorage.setItem("favObject", JSON.stringify(favoritePlaces));
+}
+function loadFavorites() {
+  const favObject = JSON.parse(localStorage.getItem("favObject"));
+  favoritePlaces = favObject;
+  if (!favObject) return;
+  favList.innerHTML = "";
+  favObject.forEach((fav) => {
+    const li = document.createElement("li");
+    li.innerHTML = `
+    <button 
+    id = "ID${fav.latitude.replace(/\./g, "")}${fav.longitude.replace(/\./g, "")}"
+    data-latitude="${fav.latitude}" 
+    data-longitude="${fav.longitude}">
+        ${fav.name}
+    </button>`;
+    favList.append(li);
+    const targetCity = document.querySelector(
+      `#ID${fav.latitude.replace(/\./g, "")}${fav.longitude.replace(/\./g, "")}`,
+    );
+    const latitude = targetCity.dataset.latitude;
+    const longitude = targetCity.dataset.longitude;
+    li.addEventListener("click", async () => {
+      loadScreen.classList.remove("hidden");
+      const reverseGeoSearch = await fetch(
+        `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`,
+      );
+      const searchResult = await reverseGeoSearch.json();
+      setTimeout(() => {
+        loadScreen.classList.add("hidden");
+      }, LOADER_TIMEOUT);
+      let name;
+      let region;
+      console.log(favObject);
+      const ourObject = favObject.find(
+        (obj) => obj.latitude === latitude && obj.longitude === longitude,
+      );
+      if (searchResult.address.town === undefined) {
+        name = ourObject.name;
+        region = ourObject.region;
+      } else {
+        name = searchResult.address.town;
+        region = searchResult.address.region;
+      }
+      const reformatedSearchResult = {
+        name: name,
+        region: region,
+        country: searchResult.address.country,
+        latitude: latitude,
+        longitude: longitude,
+      };
+      const returnedWeather = await getWeatherData(latitude, longitude);
+      if (returnedWeather) {
+        changeWeatherDOM(
+          changingValues,
+          returnedWeather,
+          reformatedSearchResult,
+        );
+        buildHourCards(hourlyCont, returnedWeather);
+        buildDayCards(dailyCont, returnedWeather);
+        checkUnits();
+        checkFavorite(latitude, longitude);
+      }
+    });
+  });
+}
+
 let timer;
 getCurrentLocation();
 currentLocation.addEventListener("click", () => {
@@ -173,17 +265,34 @@ function getCurrentLocation() {
   navigator.geolocation.getCurrentPosition(async (position) => {
     const latitude = position.coords.latitude;
     const longitude = position.coords.longitude;
-    const reverseGeoSearch = await fetch(
-      `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`,
-    );
-    const searchResult = await reverseGeoSearch.json();
-    const reformatedSearchResult = {
-      name: searchResult.address.town,
-      region: searchResult.address.region,
-      country: searchResult.address.country,
-      latitude: position.coords.latitude,
-      longitude: position.coords.longitude,
-    };
+    let reformatedSearchResult;
+    loadScreen.classList.remove("hidden");
+    try {
+      const reverseGeoSearch = await fetch(
+        `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`,
+        { headers: { "User-Agent": "Z-Weather" } },
+      );
+      const searchResult = await reverseGeoSearch.json();
+      reformatedSearchResult = {
+        name: searchResult.address.town,
+        region: searchResult.address.region,
+        country: searchResult.address.country,
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude,
+      };
+    } catch {
+      reformatedSearchResult = {
+        name: position.coords.latitude + ", " + position.coords.longitude,
+        region: undefined,
+        country: undefined,
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude,
+      };
+    }
+    setTimeout(() => {
+      loadScreen.classList.add("hidden");
+    }, LOADER_TIMEOUT);
+
     const returnedWeather = await getWeatherData(latitude, longitude);
     if (returnedWeather) {
       changeWeatherDOM(changingValues, returnedWeather, reformatedSearchResult);
@@ -215,6 +324,7 @@ timeSetting.addEventListener("click", () => {
     timeConverter(times, "24");
     timeText.textContent = "12h";
   }
+  saveSettings();
 });
 tempSetting.addEventListener("click", () => {
   const degrees = document.querySelectorAll(".degree");
@@ -226,6 +336,7 @@ tempSetting.addEventListener("click", () => {
     celsiusToFahrenheit(degrees, unitMarkers);
     tempSettingText.textContent = "Celsius";
   }
+  saveSettings();
 });
 speedUnitSetting.addEventListener("click", () => {
   const speeds = document.querySelectorAll(".speed");
@@ -237,6 +348,7 @@ speedUnitSetting.addEventListener("click", () => {
     kmhToMph(speeds, unitMarkers);
     speedUnitSettingText.textContent = "km/h";
   }
+  saveSettings();
 });
 
 weatherSearch.addEventListener("input", (e) => {
@@ -250,6 +362,7 @@ weatherSearch.addEventListener("input", (e) => {
       );
       autocompleteOptions.forEach((opt) => {
         opt.addEventListener("click", async (e) => {
+          loadScreen.classList.remove("hidden");
           weatherSearch.value = "";
           const elementLatitude = e.target.closest("li").dataset.latitude;
           const elementLongitude = e.target.closest("li").dataset.longitude;
@@ -263,6 +376,9 @@ weatherSearch.addEventListener("input", (e) => {
             elementLatitude,
             elementLongitude,
           );
+          setTimeout(() => {
+            loadScreen.classList.add("hidden");
+          }, LOADER_TIMEOUT);
           if (returnedWeather) {
             changeWeatherDOM(changingValues, returnedWeather, selectedSearch);
             buildHourCards(hourlyCont, returnedWeather);
@@ -295,28 +411,3 @@ nav.style.transition = "none";
 requestAnimationFrame(() => {
   nav.style.transition = "";
 });
-
-const mainWeatherIcon = document.querySelector(".mainWeatherIcon");
-mainWeatherIcon.innerHTML = `<svg viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g id="clear-day">
-<g id="Sun">
-<circle id="Core" cx="64" cy="63.9999" r="19.5" fill="url(#paint0_linear_1802_5186)" stroke="#F8AF18"/>
-<g id="Rays">
-<path d="M61 19C61 17.3431 62.3431 16 64 16C65.6568 16 67 17.3431 67 19V33C67 34.6569 65.6568 36 64 36C62.3431 36 61 34.6569 61 33V19Z" fill="#F8AF18"/>
-<path d="M93.6985 30.0589C94.87 28.8873 96.7696 28.8873 97.9411 30.0589C99.1127 31.2304 99.1127 33.1299 97.9411 34.3015L88.0416 44.201C86.8701 45.3726 84.9706 45.3726 83.799 44.201C82.6274 43.0294 82.6274 41.1299 83.799 39.9584L93.6985 30.0589Z" fill="#F8AF18"/>
-<path d="M109 61C110.657 61 112 62.3432 112 64C112 65.6569 110.657 67 109 67H95C93.3431 67 92 65.6569 92 64C92 62.3432 93.3431 61 95 61H109Z" fill="#F8AF18"/>
-<path d="M97.9411 93.6985C99.1127 94.8701 99.1127 96.7696 97.9411 97.9411C96.7696 99.1127 94.8701 99.1127 93.6985 97.9411L83.799 88.0416C82.6274 86.8701 82.6274 84.9706 83.799 83.799C84.9706 82.6274 86.8701 82.6274 88.0416 83.799L97.9411 93.6985Z" fill="#F8AF18"/>
-<path d="M61 95C61 93.3431 62.3431 92 64 92C65.6568 92 67 93.3431 67 95V109C67 110.657 65.6568 112 64 112C62.3431 112 61 110.657 61 109V95Z" fill="#F8AF18"/>
-<path d="M39.9584 83.799C41.1299 82.6274 43.0294 82.6274 44.201 83.799C45.3726 84.9706 45.3726 86.8701 44.201 88.0416L34.3015 97.9411C33.1299 99.1127 31.2304 99.1127 30.0589 97.9411C28.8873 96.7696 28.8873 94.87 30.0589 93.6985L39.9584 83.799Z" fill="#F8AF18"/>
-<path d="M33 61C34.6569 61 36 62.3431 36 64C36 65.6568 34.6569 67 33 67H19C17.3431 67 16 65.6568 16 64C16 62.3431 17.3431 61 19 61H33Z" fill="#F8AF18"/>
-<path d="M44.201 39.9584C45.3726 41.1299 45.3726 43.0294 44.201 44.201C43.0294 45.3726 41.1299 45.3726 39.9584 44.201L30.0589 34.3015C28.8873 33.1299 28.8873 31.2305 30.0589 30.0589C31.2305 28.8873 33.1299 28.8873 34.3015 30.0589L44.201 39.9584Z" fill="#F8AF18"/>
-<animateTransform attributeName="transform" type="rotate" values="0 64.0 64.0;360 64.0 64.0" dur="30s" begin="0s" repeatCount="indefinite"/></g>
-</g>
-</g>
-<defs>
-<linearGradient id="paint0_linear_1802_5186" x1="64" y1="43.9999" x2="64" y2="83.9999" gradientUnits="userSpaceOnUse">
-<stop stop-color="#FBBF24"/>
-<stop offset="1" stop-color="#F8AF18"/>
-</linearGradient>
-</defs>
-</svg>`;
