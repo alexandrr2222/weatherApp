@@ -112,19 +112,16 @@ header button:hover svg {
   -webkit-appearance: none;
   display: none;
 }
-
 .searchbar::placeholder {
   color: var(--text-muted);
   /* font-style: italic; */
   font-family: "DM Sans", serif;
   font-size: 0.9rem;
 }
-
 .searchbar:focus {
   border-color: var(--accent);
   background-color: var(--surface-hover);
 }
-
 .settingsMenu {
   flex-direction: column;
   position: absolute;
@@ -143,11 +140,12 @@ header button:hover svg {
   overflow: hidden;
   transition:
     max-height 0.3s ease-out,
-    opacity 0.1s ease-out,
+    opacity 0.2s ease-out,
     padding-bottom 0.3s ease-out;
   list-style: none;
 }
 .settingsMenu.active {
+  transform: translateY(0);
   display: flex;
   max-height: 20rem;
   opacity: 1;
@@ -155,7 +153,8 @@ header button:hover svg {
 }
 .settingsMenu .menuLabel:last-of-type {
   border-top: 1px solid var(--divider);
-  padding-top: 0.4rem;
+  margin-top: 0.35rem;
+  padding-top: 0.5rem;
 }
 .settingsMenu ul li button {
   width: 100%;
@@ -174,18 +173,24 @@ header button:hover svg {
 }
 .settingsMenu ul li button:hover {
   background-color: var(--surface-hover);
+  color: var(--accent);
 }
 .settingsMenu ul li button svg {
   width: 1.1rem;
   height: auto;
   color: var(--accent);
   flex-shrink: 0;
+  width: 1.05rem;
+  height: 1.05rem;
 }
 .menuLabel {
-  letter-spacing: 0.03rem;
+  letter-spacing: 0.05rem;
   font-family: "Cormorant Garamond", "Times New Roman", Times, serif;
-  font-weight: 600;
-  font-size: 1.1rem;
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: var(--text);
+  padding: 0 0.2rem;
+  margin-bottom: -0.1rem;
 }
 .starIconEmpty {
   display: none;
@@ -225,4 +230,21 @@ header button:hover svg {
 .autoRegion {
   font-size: 0.75rem;
   color: var(--text-muted);
+}
+.starIconFull,
+.starIconEmpty,
+.currentLocationIcon,
+.tempSettingIcon,
+.speedUnitSettingIcon,
+.timeSettingsIcon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.favoriteThisText,
+.currentLocationText,
+.tempSettingText,
+.speedUnitSettingText,
+.timeText {
+  font-weight: 400;
 }

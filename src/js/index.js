@@ -4,7 +4,7 @@
 // display localtime only when it doesnt fit u
 // trim hours for am/pm
 // sometimes fetches different name
-// menu polish
+// consider removing scrollbar on phone
 
 // refactor and especially modulate code
 // detail changer for hours
@@ -67,6 +67,10 @@ document.addEventListener("click", (e) => {
   nav.classList.remove("active");
   overlay.classList.remove("active");
 });
+favBoxIcon.addEventListener("click", () => {
+  nav.scrollTop = 0;
+});
+
 favoriteThisButton.addEventListener("click", () => {
   const cityName = document.querySelector(".cityName");
   let formattedName;
@@ -131,7 +135,7 @@ favoriteThisButton.addEventListener("click", () => {
           reformatedSearchResult,
         );
         buildHourCards(hourlyCont, returnedWeather);
-        buildDayCards(dailyCont, returnedWeather);
+        buildDayCards(dailyCont, returnedWeather, StaticIconData);
         checkUnits();
         checkFavorite(latitude, longitude);
         window.scrollTo(0, 0);
@@ -264,7 +268,7 @@ function loadFavorites() {
           reformatedSearchResult,
         );
         buildHourCards(hourlyCont, returnedWeather);
-        buildDayCards(dailyCont, returnedWeather);
+        buildDayCards(dailyCont, returnedWeather, StaticIconData);
         checkUnits();
         checkFavorite(latitude, longitude);
         window.scrollTo(0, 0);
@@ -317,7 +321,7 @@ function getCurrentLocation() {
     if (returnedWeather) {
       changeWeatherDOM(changingValues, returnedWeather, reformatedSearchResult);
       buildHourCards(hourlyCont, returnedWeather);
-      buildDayCards(dailyCont, returnedWeather);
+      buildDayCards(dailyCont, returnedWeather, StaticIconData);
       checkUnits();
       checkFavorite(latitude, longitude);
       window.scrollTo(0, 0);
@@ -404,7 +408,7 @@ weatherSearch.addEventListener("input", (e) => {
           if (returnedWeather) {
             changeWeatherDOM(changingValues, returnedWeather, selectedSearch);
             buildHourCards(hourlyCont, returnedWeather);
-            buildDayCards(dailyCont, returnedWeather);
+            buildDayCards(dailyCont, returnedWeather, StaticIconData);
             checkUnits();
             checkFavorite(selectedSearch.latitude, selectedSearch.longitude);
             window.scrollTo(0, 0);

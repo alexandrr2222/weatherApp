@@ -1,5 +1,7 @@
 import { formatInTimeZone } from "date-fns-tz";
+import { add, format } from "date-fns";
 const DISPLAYED_HOURS = 12;
+const DISPLAYED_DAYS = 6;
 
 function renderIcon(description, parent, night) {
   parent.innerHTML = "";
@@ -40,7 +42,9 @@ export function changeWeatherDOM(DOM, data, searchData) {
   DOM.tempMin.textContent = Math.round(data.daily.temperature_2m_min[0]);
   DOM.tempMax.textContent = Math.round(data.daily.temperature_2m_max[0]);
   DOM.wind.textContent = Math.round(data.current.wind_speed_10m);
-  DOM.uvIndex.textContent = data.hourly.uv_index[currentHour].toFixed(1);
+  let fixedUV = String(data.hourly.uv_index[currentHour].toFixed(1));
+  if (fixedUV.at(-1) === "0") fixedUV = fixedUV.slice(0, -2);
+  DOM.uvIndex.textContent = fixedUV;
   DOM.sunrise.textContent = data.daily.sunrise[0].slice(-5);
   DOM.sunset.textContent = data.daily.sunset[0].slice(-5);
   DOM.rain.textContent = data.current.precipitation;
@@ -91,7 +95,7 @@ export function buildHourCards(parent, weather) {
     }
     const li = document.createElement("li");
     li.innerHTML = `
-        <time datetime="" class="timeHour time">${Number(checkedHour) + ii}:00</time>
+        <time datetime="${Number(checkedHour) + ii}:00" class="timeHour time">${Number(checkedHour) + ii}:00</time>
         <div class="whIcon weatherHourIcon${i}"></div>
         <p class="temperatureHour">
             <span class="hourTemp degree">${Math.round(weather.hourly.temperature_2m[Number(currentHour) + i + 1])} </span>
@@ -114,18 +118,91 @@ export function buildHourCards(parent, weather) {
   }
 }
 export function buildDayCards(parent, weather) {
+  const currentDate = weather.current.time;
+  let dayDate = currentDate;
   parent.innerHTML = "";
-  for (let i = 0; i < 6; i++) {
+  for (let i = 0; i < DISPLAYED_DAYS; i++) {
+    let fixedUV = String(weather.daily.uv_index_max[i + 1].toFixed(1));
+    if (fixedUV.at(-1) === "0") fixedUV = fixedUV.slice(0, -2);
+    const sluggedDescription = weatherConditions[
+      weather.daily.weather_code[i + 1]
+    ]
+      .toLowerCase()
+      .replace(/\s+/g, "_");
+    dayDate = add(dayDate, {
+      days: 1,
+    });
+    const dayName = format(dayDate, "eeee");
+    const date = format(dayDate, "do MMMM");
+
     const li = document.createElement("li");
     li.dataset.day = i;
     li.innerHTML = `
-        <time datetime="" class="dayTime"></time>
-        <div class="weatherDayIcon"></div>
-        <p class="minMaxDay">
-          <span class="maxDay">20</span><span class="tempUnit">°C</span>
-          <span>/</span>
-          <span class="minDay">13</span><span class="tempUnit">°C</span>
-        </p>`;
+        <li class="dayCard">
+            <div class="weatherDayIcon"></div>
+            <div class="weatherDayMain">
+              <time datetime="" class="dayDay">${dayName}</time>
+              <time datetime="" class="dayDate">${date}</time>
+              <div class="minmaxDayCont">
+                <div class="minDayCOnt">
+                  <p class="minTempDay">
+                    <span class="minTempDayNum degree">${Math.round(
+                      weather.daily.temperature_2m_min[i + 1],
+                    )}</span>
+                    <span class="tempUnit">°C</span>
+                  </p>
+                  <p class="minTempText">min</p>
+                </div>
+                <div class="maxDayCont">
+                  <p class="maxTempDay">
+                    <span class="maxTempDayNum degree">${Math.round(
+                      weather.daily.temperature_2m_max[i + 1],
+                    )}</span>
+                    <span class="tempUnit">°C</span>
+                  </p>
+                  <p class="maxTempText">max</p>
+                </div>
+              </div>
+            </div>
+            <div class="weatherDayDetails">
+              <div class="dayWind">
+                <div class="dayWindIcon"></div>
+                <div>
+                  <p class="dayWindText">Wind max</p>
+                  <p>
+                    <span class="dayWindUnit speed">${Math.round(
+                      weather.daily.wind_speed_10m_max[i + 1],
+                    )}</span>
+                    <span class="speedUnit">km/h</span>
+                  </p>
+                </div>
+              </div>
+              <div class="dayPrecipitation">
+                <div class="dayPrecipitationIcon"></div>
+                <div>
+                  <p class="dayPrecipitationText">Precipitation</p>
+                  <p>
+                    <span class="dayPrecipitationUnit">${Math.round(
+                      weather.daily.precipitation_probability_max[i + 1],
+                    )}</span><span>%</span>
+                  </p>
+                </div>
+              </div>
+              <div class="dayUV">
+                <div class="dayUVIcon"></div>
+                <div>
+                  <p class="dayUVText">Max UV</p>
+                  <p class="dayUVUnit">${fixedUV}</p>
+                </div>
+              </div>
+            </div>
+          </li>
+          `;
+    renderIcon(
+      sluggedDescription,
+      li.querySelector(".weatherDayIcon"),
+      undefined,
+    );
     parent.append(li);
   }
 }
