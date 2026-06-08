@@ -377,19 +377,16 @@ header button:hover svg {
   -webkit-appearance: none;
   display: none;
 }
-
 .searchbar::placeholder {
   color: var(--text-muted);
   /* font-style: italic; */
   font-family: "DM Sans", serif;
   font-size: 0.9rem;
 }
-
 .searchbar:focus {
   border-color: var(--accent);
   background-color: var(--surface-hover);
 }
-
 .settingsMenu {
   flex-direction: column;
   position: absolute;
@@ -408,11 +405,12 @@ header button:hover svg {
   overflow: hidden;
   transition:
     max-height 0.3s ease-out,
-    opacity 0.1s ease-out,
+    opacity 0.2s ease-out,
     padding-bottom 0.3s ease-out;
   list-style: none;
 }
 .settingsMenu.active {
+  transform: translateY(0);
   display: flex;
   max-height: 20rem;
   opacity: 1;
@@ -420,7 +418,8 @@ header button:hover svg {
 }
 .settingsMenu .menuLabel:last-of-type {
   border-top: 1px solid var(--divider);
-  padding-top: 0.4rem;
+  margin-top: 0.35rem;
+  padding-top: 0.5rem;
 }
 .settingsMenu ul li button {
   width: 100%;
@@ -437,25 +436,82 @@ header button:hover svg {
   font-size: 0.85rem;
   transition: background-color var(--transition);
 }
-
 .settingsMenu ul li button:hover {
   background-color: var(--surface-hover);
+  color: var(--accent);
 }
-
 .settingsMenu ul li button svg {
   width: 1.1rem;
   height: auto;
   color: var(--accent);
   flex-shrink: 0;
+  width: 1.05rem;
+  height: 1.05rem;
 }
 .menuLabel {
-  letter-spacing: 0.03rem;
+  letter-spacing: 0.05rem;
   font-family: "Cormorant Garamond", "Times New Roman", Times, serif;
-  font-weight: 600;
-  font-size: 1.1rem;
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: var(--text);
+  padding: 0 0.2rem;
+  margin-bottom: -0.1rem;
 }
 .starIconEmpty {
   display: none;
+}
+.autocomplete {
+  position: absolute;
+  top: 100%;
+  min-height: 0;
+  background: var(--surface);
+  border-radius: var(--radius);
+  box-shadow: 0 8px 24px var(--shadow);
+  overflow: hidden;
+  z-index: 50;
+  width: 100%;
+  margin-top: 0.25rem;
+}
+.autocomplete:has(li) {
+  border: 1px solid var(--divider);
+}
+.autocomplete li {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: background-color var(--transition);
+  border-bottom: 1px solid var(--divider);
+}
+.autocomplete li:last-child {
+  border-bottom: none;
+}
+.autocomplete li:hover {
+  background-color: var(--surface-hover);
+}
+.autoName {
+  font-size: 0.9rem;
+  color: var(--text);
+  margin-bottom: -0.1rem;
+}
+.autoRegion {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+.starIconFull,
+.starIconEmpty,
+.currentLocationIcon,
+.tempSettingIcon,
+.speedUnitSettingIcon,
+.timeSettingsIcon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.favoriteThisText,
+.currentLocationText,
+.tempSettingText,
+.speedUnitSettingText,
+.timeText {
+  font-weight: 400;
 }
 
 .overlay {
@@ -482,15 +538,17 @@ nav {
   padding: 1.5rem 1rem;
   transform: translateX(-100%);
   transition: transform 0.3s ease;
+  overflow-y: scroll;
 }
-
 nav.active {
   transform: translateX(0);
   box-shadow: 4px 0 20px var(--shadow);
 }
-
+body:has(nav.active) {
+  overflow: hidden;
+}
 .favMenuLabel {
-  text-align: start;
+  text-align: center;
   font-family: "Cormorant Garamond", serif;
   font-weight: 500;
   font-size: 1.5rem;
@@ -498,29 +556,41 @@ nav.active {
   letter-spacing: 0.02rem;
   padding: 0;
 }
-
-.dividerLine {
-  height: 2px;
-  background: var(--text-muted);
-  margin: 0.5rem 0;
-}
 .dividerLineIcon {
-  height: 1rem;
-  width: 100%;
+  margin-bottom: -0rem;
+  margin-top: 0.1rem;
   align-self: center;
 }
 .dividerLineIcon svg {
   height: 100%;
   width: 100%;
 }
-
+.sep-diamond {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+nav.active .sep-diamond {
+  animation: diamondIn 1000ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+@keyframes diamondIn {
+  0% {
+    opacity: 0;
+    transform: scale(0) rotate(-90deg);
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
 .favList {
   list-style: none;
   display: flex;
   flex-direction: column;
   gap: 0.2rem;
 }
-
 .favList button {
   width: 100%;
   text-align: left;
@@ -530,13 +600,12 @@ nav.active {
   border-radius: var(--radius);
   color: var(--text);
   font-family: "Literata", serif;
-  font-size: 0.9rem;
+  font-size: 1rem;
   cursor: pointer;
   transition:
     background-color var(--transition),
     color var(--transition);
 }
-
 .favList button:hover {
   background-color: var(--surface);
   color: var(--accent);
@@ -559,13 +628,11 @@ main {
   font-size: 2rem;
   font-weight: bold;
   margin-top: -0.5rem;
-  margin-bottom: 0.25rem;
+  margin-bottom: -0.25rem;
 }
 .currentTime {
-  font-family: "Cormorant Garamond", serif;
-  font-weight: bold;
   color: var(--text-muted);
-  font-size: 1.5rem;
+  font-size: 0.8rem;
   margin-bottom: -0rem;
 }
 
@@ -687,28 +754,58 @@ main {
   display: block;
 }
 .hourlyCont {
-  margin-top: 3rem;
-  overflow: hidden;
+  margin-top: 2rem;
+  overflow-x: auto;
+}
+.hourlyCont::-webkit-scrollbar {
+  height: 3px;
+}
+
+.hourlyCont::-webkit-scrollbar-track {
+  background: var(--surface);
+}
+
+.hourlyCont::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 2px;
 }
 .hourlyCont ul {
   display: flex;
   gap: 0.5rem;
+  padding-bottom: 0.5rem;
 }
 .hourlyCont ul li {
-  padding: 0.3rem;
-  background-color: var(--divider);
-}
-.dailyCont {
-  margin-top: 3rem;
-}
-.dailyCont ul {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.8rem 0.6rem;
+  background: var(--surface);
+  border-radius: var(--radius);
+  min-width: 4.75rem;
+  flex-shrink: 0;
 }
-.dailyCont ul li {
-  padding: 0.6rem;
-  background-color: var(--divider);
+.timeHour {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+.whIcon {
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.whIcon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.temperatureHour {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text);
+  white-space: nowrap;
 }
 .loadScreen {
   position: fixed;
@@ -759,5 +856,102 @@ body:has(.loadScreen:not(.hidden)) {
   100% {
     transform: rotate(360deg);
   }
+}
+
+.dailyCont {
+  margin-top: 2rem;
+}
+.dailyCont ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  list-style: none;
+}
+.dayCard {
+  display: grid;
+  grid-template-columns: 3.5rem 1fr 1fr;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.875rem 1rem;
+  background: var(--surface);
+  border-radius: var(--radius);
+}
+.weatherDayIcon {
+  width: 3.5rem;
+  height: 3.5rem;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.weatherDayIcon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.weatherDayMain {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+.dayDay {
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: var(--text);
+  letter-spacing: 0.04em;
+}
+.dayDate {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-bottom: 0.375rem;
+}
+.minmaxDayCont {
+  display: flex;
+  gap: 0.75rem;
+}
+.minDayCOnt,
+.maxDayCont {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.minTempDay,
+.maxTempDay {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text);
+}
+.minTempText,
+.maxTempText {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+.weatherDayDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+.dayWind,
+.dayPrecipitation,
+.dayUV {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.dayWindText,
+.dayPrecipitationText,
+.dayUVText {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  line-height: 1;
+  margin-bottom: 0.25rem;
+}
+.dayWind p:last-child,
+.dayPrecipitation p:last-child,
+.dayUV p:last-child {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text);
+  line-height: 1;
 }
 
