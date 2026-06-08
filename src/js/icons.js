@@ -47,8 +47,8 @@ export const StaticIconData = [
 		<circle cx="15" cy="14" r="1.8" fill="#6b5d4a"/>
 		<line x1="23" y1="14" x2="108" y2="14" stroke="#6b5d4a" stroke-width="1.2"/>
 		<g class="sep-diamond">
-			<polygon points="130,3 141,14 130,25 119,14" fill="#a66537"/>
-			<polygon points="130,7 137,14 130,21 123,14" fill="#241e17"/>
+			<polygon points="130,3 141,14 130,25 119,14" fill="#a66537f6"/>
+			<polygon points="130,7 137,14 130,21 123,14" fill="#1e1a16"/>
 		</g>
 		<line x1="152" y1="14" x2="237" y2="14" stroke="#6b5d4a" stroke-width="1.2"/>
 		<circle cx="245" cy="14" r="1.8" fill="#6b5d4a"/>

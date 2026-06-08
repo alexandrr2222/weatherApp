@@ -44,10 +44,16 @@ export function timeConverter(times, preference) {
     if (preference === "12") {
       const currentTime = time.textContent;
       const parsed = parse(currentTime, "HH:mm", new Date());
-      time.textContent = format(parsed, "hh:mm a");
+      if (time.classList.contains("timeHour"))
+        time.textContent = format(parsed, "h a");
+      else time.textContent = format(parsed, "h:mm a");
     } else if (preference === "24") {
+      let parsed;
       const currentTime = time.textContent;
-      const parsed = parse(currentTime, "hh:mm a", new Date());
+      if (time.classList.contains("timeHour"))
+        parsed = parse(currentTime, "hh a", new Date());
+      else parsed = parse(currentTime, "hh:mm a", new Date());
+
       time.textContent = format(parsed, "HH:mm");
     }
   });

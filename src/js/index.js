@@ -1,10 +1,8 @@
-// implement days
 // error msg on fail load
 // guardrails against clicking options menu while api loading
-// display localtime only when it doesnt fit u
-// trim hours for am/pm
 // sometimes fetches different name
 // consider removing scrollbar on phone
+// should be converting from original kmph and c, NOT from mph/f to kmph/c
 
 // refactor and especially modulate code
 // detail changer for hours
