@@ -1,7 +1,5 @@
 // error msg on fail load
-// sometimes fetches different name
 // should be converting from original kmph and c, NOT from mph/f to kmph/c
-// NOMINATIM FUCKING BROKEN CHECK CLAUDE
 
 // guardrails against clicking options menu while api loading
 // consider removing scrollbar on phone

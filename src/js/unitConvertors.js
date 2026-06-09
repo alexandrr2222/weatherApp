@@ -1,10 +1,13 @@
 import { parse, format } from "date-fns";
+let temperatureStorage = [];
 export function celsiusToFahrenheit(degrees, unitMarkers) {
   Array.from(degrees).forEach((degree) => {
+    temperatureStorage.push(degree.textContent);
     const celsius = degree.textContent;
     const fahrenheit = celsius * (9 / 5) + 32;
     degree.textContent = Math.round(fahrenheit);
   });
+  console.log(temperatureStorage);
   Array.from(unitMarkers).forEach((marker) => {
     marker.textContent = "°F";
   });
@@ -19,6 +22,8 @@ export function fahrenheitToCelsius(degrees, unitMarkers) {
     marker.textContent = "°C";
   });
 }
+// load from object, but then into what
+//
 export function kmhToMph(speeds, unitMarkers) {
   Array.from(speeds).forEach((speed) => {
     const kmh = speed.textContent;
@@ -53,7 +58,6 @@ export function timeConverter(times, preference) {
       if (time.classList.contains("timeHour"))
         parsed = parse(currentTime, "hh a", new Date());
       else parsed = parse(currentTime, "hh:mm a", new Date());
-
       time.textContent = format(parsed, "HH:mm");
     }
   });
