@@ -1,5 +1,6 @@
 import { parse, format } from "date-fns";
 let temperatureStorage = [];
+let speedStorage = [];
 export function celsiusToFahrenheit(degrees, unitMarkers) {
   Array.from(degrees).forEach((degree) => {
     temperatureStorage.push(degree.textContent);
@@ -13,19 +14,20 @@ export function celsiusToFahrenheit(degrees, unitMarkers) {
   });
 }
 export function fahrenheitToCelsius(degrees, unitMarkers) {
+  let i = 0;
   Array.from(degrees).forEach((degree) => {
-    const fahrenheit = degree.textContent;
-    const celsius = (fahrenheit - 32) * (5 / 9);
-    degree.textContent = Math.round(celsius);
+    degree.textContent = temperatureStorage[i];
+    i++;
   });
   Array.from(unitMarkers).forEach((marker) => {
     marker.textContent = "°C";
   });
+  temperatureStorage = [];
 }
-// load from object, but then into what
-//
+
 export function kmhToMph(speeds, unitMarkers) {
   Array.from(speeds).forEach((speed) => {
+    speedStorage.push(speed.textContent);
     const kmh = speed.textContent;
     const mph = kmh / 1.609344;
     speed.textContent = Math.round(mph);
@@ -35,14 +37,15 @@ export function kmhToMph(speeds, unitMarkers) {
   });
 }
 export function mphToKmh(speeds, unitMarkers) {
+  let i = 0;
   Array.from(speeds).forEach((speed) => {
-    const mph = speed.textContent;
-    const kmh = mph * 1.609344;
-    speed.textContent = Math.round(kmh);
+    speed.textContent = speedStorage[i];
+    i++;
   });
   Array.from(unitMarkers).forEach((marker) => {
     marker.textContent = "km/h";
   });
+  speedStorage = [];
 }
 export function timeConverter(times, preference) {
   Array.from(times).forEach((time) => {
