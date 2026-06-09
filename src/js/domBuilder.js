@@ -22,12 +22,15 @@ export function changeWeatherDOM(DOM, data, searchData) {
     .toLowerCase()
     .replace(/\s+/g, "_");
   renderIcon(sluggedDescription, DOM.mainWeatherIcon, night);
+  DOM.locationName.dataset.city = searchData.name;
+  DOM.locationName.dataset.region = searchData.region;
   DOM.locationName.dataset.latitude = searchData.latitude;
   DOM.locationName.dataset.longitude = searchData.longitude;
   if (
     searchData.name === searchData.region ||
     (searchData.name + ", " + searchData.region).length > 22 ||
-    searchData.region === undefined
+    searchData.region === undefined ||
+    searchData.region === "undefined"
   )
     DOM.locationName.textContent = searchData.name;
   else

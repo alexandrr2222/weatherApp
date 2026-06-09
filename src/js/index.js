@@ -1,8 +1,10 @@
 // error msg on fail load
-// guardrails against clicking options menu while api loading
 // sometimes fetches different name
-// consider removing scrollbar on phone
 // should be converting from original kmph and c, NOT from mph/f to kmph/c
+// NOMINATIM FUCKING BROKEN CHECK CLAUDE
+
+// guardrails against clicking options menu while api loading
+// consider removing scrollbar on phone
 
 // refactor and especially modulate code
 // detail changer for hours
@@ -106,21 +108,21 @@ favoriteThisButton.addEventListener("click", () => {
         loadScreen.classList.add("hidden");
       }, LOADER_TIMEOUT);
 
-      let name;
-      let region;
-      const ourObject = favoritePlaces.find(
-        (obj) => obj.latitude === latitude && obj.longitude === longitude,
-      );
-      if (searchResult.address.town === undefined) {
-        name = ourObject.name;
-        region = ourObject.region;
-      } else {
-        name = searchResult.address.town;
-        region = searchResult.address.region;
-      }
+      //   let name;
+      //   let region;
+      //   const ourObject = favoritePlaces.find(
+      //     (obj) => obj.latitude === latitude && obj.longitude === longitude,
+      //   );
+      //   if (searchResult.address.town === undefined) {
+      //     name = ourObject.name;
+      //     region = ourObject.region;
+      //   } else {
+      //     name = searchResult.address.town;
+      //     region = searchResult.address.region;
+      //   }
       const reformatedSearchResult = {
-        name: name,
-        region: region,
+        name: cityName.dataset.city,
+        region: cityName.dataset.region,
         country: searchResult.address.country,
         latitude: latitude,
         longitude: longitude,
@@ -238,22 +240,22 @@ function loadFavorites() {
       setTimeout(() => {
         loadScreen.classList.add("hidden");
       }, LOADER_TIMEOUT);
-      let name;
-      let region;
-      console.log(favObject);
-      const ourObject = favObject.find(
-        (obj) => obj.latitude === latitude && obj.longitude === longitude,
-      );
-      if (searchResult.address.town === undefined) {
-        name = ourObject.name;
-        region = ourObject.region;
-      } else {
-        name = searchResult.address.town;
-        region = searchResult.address.region;
-      }
+      //   let name;
+      //   let region;
+      //   console.log(favObject);
+      //   const ourObject = favObject.find(
+      //     (obj) => obj.latitude === latitude && obj.longitude === longitude,
+      //   );
+      //   if (searchResult.address.town === undefined) {
+      //     name = ourObject.name;
+      //     region = ourObject.region;
+      //   } else {
+      //     name = searchResult.address.town;
+      //     region = searchResult.address.region;
+      //   }
       const reformatedSearchResult = {
-        name: name,
-        region: region,
+        name: targetCity.dataset.city,
+        region: targetCity.dataset.region,
         country: searchResult.address.country,
         latitude: latitude,
         longitude: longitude,
@@ -295,8 +297,16 @@ function getCurrentLocation() {
         { headers: { "User-Agent": "Z-Weather" } },
       );
       const searchResult = await reverseGeoSearch.json();
+      const name =
+        searchResult.address.city ||
+        searchResult.address.town ||
+        searchResult.address.village ||
+        searchResult.address.hamlet ||
+        searchResult.address.municipality ||
+        searchResult.address.county ||
+        `${latitude}, ${longitude}`;
       reformatedSearchResult = {
-        name: searchResult.address.town,
+        name: name,
         region: searchResult.address.region,
         country: searchResult.address.country,
         latitude: position.coords.latitude,
