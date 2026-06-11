@@ -250,6 +250,32 @@ body:has(.loadScreen:not(.hidden)) {
     transform: rotate(360deg);
   }
 }
+.errorScreen {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--bg);
+  z-index: 7;
+}
+body:has(.errorScreen:not(.hidden)) {
+  overflow: hidden;
+}
+.errorScreen.hidden {
+  display: none;
+}
+.errorText {
+  font-size: 1.5rem;
+  margin-bottom: 0rem;
+}
+.errorText span {
+  color: var(--accent);
+}
+.errorText2 {
+  font-size: 1.2rem;
+}
 
 .dailyCont {
   margin-top: 2rem;
@@ -485,7 +511,9 @@ body:has(.loadScreen:not(.hidden)) {
   header {
     z-index: 420;
   }
-  body {
+  body,
+  .loadScreen,
+  .errorScreen {
     margin-left: 13rem;
   }
 }

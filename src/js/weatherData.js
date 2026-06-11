@@ -6,7 +6,7 @@ export async function getWeatherData(latitude, longitude) {
     const responseData = await response.json();
     console.log(responseData);
     return responseData;
-  } catch (error) {
-    console.log(error);
+  } catch {
+    document.querySelector(".errorScreen").classList.remove("hidden");
   }
 }

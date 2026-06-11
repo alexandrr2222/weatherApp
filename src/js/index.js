@@ -1,7 +1,5 @@
-// ERROR MESSAGE
-// guardrails against clicking options menu while api loading/or error
+// downloadable and keeps STORAGE INTACT
 
-// // saving cords bad
 // refactor and especially modulate code
 // detail changer for hours
 
@@ -52,6 +50,7 @@ const starIconEmpty = document.querySelector(".starIconEmpty");
 const favList = document.querySelector(".favList");
 const loadScreen = document.querySelector(".loadScreen");
 const searchCont = document.querySelector(".searchCont");
+const errorScreen = document.querySelector(".errorScreen");
 let favoritePlaces = [];
 const LOADER_TIMEOUT = 600;
 loadSettings();
@@ -111,11 +110,18 @@ favoriteThisButton.addEventListener("click", () => {
     favList.append(li);
     li.addEventListener("click", async () => {
       loadScreen.classList.remove("hidden");
-      const reverseGeoSearch = await fetch(
-        `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`,
-      );
-      const searchResult = await reverseGeoSearch.json();
-      console.log(searchResult);
+      errorScreen.classList.add("hidden");
+      let searchResult;
+      try {
+        const reverseGeoSearch = await fetch(
+          `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`,
+        );
+        searchResult = await reverseGeoSearch.json();
+      } catch {
+        loadScreen.classList.add("hidden");
+        errorScreen.classList.remove("hidden");
+        return;
+      }
       const reformatedSearchResult = {
         name: li.dataset.city,
         region: li.dataset.region,
@@ -123,8 +129,15 @@ favoriteThisButton.addEventListener("click", () => {
         latitude: latitude,
         longitude: longitude,
       };
-      console.log(reformatedSearchResult);
-      const returnedWeather = await getWeatherData(latitude, longitude);
+      let returnedWeather;
+      try {
+        returnedWeather = await getWeatherData(latitude, longitude);
+      } catch {
+        loadScreen.classList.add("hidden");
+        errorScreen.classList.remove("hidden");
+        return;
+      }
+
       setTimeout(() => {
         loadScreen.classList.add("hidden");
       }, LOADER_TIMEOUT);
@@ -239,12 +252,19 @@ function loadFavorites() {
     const latitude = targetCity.dataset.latitude;
     const longitude = targetCity.dataset.longitude;
     li.addEventListener("click", async () => {
+      errorScreen.classList.add("hidden");
       loadScreen.classList.remove("hidden");
-      const reverseGeoSearch = await fetch(
-        `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`,
-      );
-      const searchResult = await reverseGeoSearch.json();
-
+      let searchResult;
+      try {
+        const reverseGeoSearch = await fetch(
+          `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`,
+        );
+        searchResult = await reverseGeoSearch.json();
+      } catch {
+        loadScreen.classList.add("hidden");
+        errorScreen.classList.remove("hidden");
+        return;
+      }
       const reformatedSearchResult = {
         name: li.dataset.name,
         region: li.dataset.region,
@@ -252,7 +272,15 @@ function loadFavorites() {
         latitude: latitude,
         longitude: longitude,
       };
-      const returnedWeather = await getWeatherData(latitude, longitude);
+      let returnedWeather;
+      try {
+        returnedWeather = await getWeatherData(latitude, longitude);
+      } catch {
+        loadScreen.classList.add("hidden");
+        errorScreen.classList.remove("hidden");
+        return;
+      }
+
       setTimeout(() => {
         loadScreen.classList.add("hidden");
       }, LOADER_TIMEOUT);
@@ -280,7 +308,9 @@ currentLocation.addEventListener("click", () => {
 });
 
 function getCurrentLocation() {
+  errorScreen.classList.remove("hidden");
   if (!navigator.geolocation) return;
+  errorScreen.classList.add("hidden");
   navigator.geolocation.getCurrentPosition(async (position) => {
     const latitude = position.coords.latitude;
     const longitude = position.coords.longitude;
@@ -308,16 +338,19 @@ function getCurrentLocation() {
         longitude: position.coords.longitude,
       };
     } catch {
-      reformatedSearchResult = {
-        name: position.coords.latitude + ", " + position.coords.longitude,
-        region: undefined,
-        country: undefined,
-        latitude: position.coords.latitude,
-        longitude: position.coords.longitude,
-      };
+      loadScreen.classList.add("hidden");
+      errorScreen.classList.remove("hidden");
+      return;
+    }
+    let returnedWeather;
+    try {
+      returnedWeather = await getWeatherData(latitude, longitude);
+    } catch {
+      loadScreen.classList.add("hidden");
+      errorScreen.classList.remove("hidden");
+      return;
     }
 
-    const returnedWeather = await getWeatherData(latitude, longitude);
     setTimeout(() => {
       loadScreen.classList.add("hidden");
     }, LOADER_TIMEOUT);
@@ -377,7 +410,14 @@ speedUnitSetting.addEventListener("click", () => {
 weatherSearch.addEventListener("input", (e) => {
   clearTimeout(timer);
   timer = setTimeout(async () => {
-    const returnedSearch = await autocompleteSearch(e.target.value);
+    let returnedSearch;
+    try {
+      returnedSearch = await autocompleteSearch(e.target.value);
+    } catch (error) {
+      console.log(error);
+      return;
+    }
+
     if (returnedSearch) {
       createSearchDOM(returnedSearch, autocomplete);
       const autocompleteOptions = Array.from(
@@ -385,6 +425,7 @@ weatherSearch.addEventListener("input", (e) => {
       );
       autocompleteOptions.forEach((opt) => {
         opt.addEventListener("click", async (e) => {
+          errorScreen.classList.add("hidden");
           loadScreen.classList.remove("hidden");
           weatherSearch.value = "";
           const elementLatitude = e.target.closest("li").dataset.latitude;
@@ -395,10 +436,18 @@ weatherSearch.addEventListener("input", (e) => {
               selected.longitude.toString() === elementLongitude,
           );
           autocomplete.innerHTML = "";
-          const returnedWeather = await getWeatherData(
-            elementLatitude,
-            elementLongitude,
-          );
+          let returnedWeather;
+          try {
+            returnedWeather = await getWeatherData(
+              elementLatitude,
+              elementLongitude,
+            );
+          } catch {
+            loadScreen.classList.add("hidden");
+            errorScreen.classList.remove("hidden");
+            return;
+          }
+
           setTimeout(() => {
             loadScreen.classList.add("hidden");
           }, LOADER_TIMEOUT);

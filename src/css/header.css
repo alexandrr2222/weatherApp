@@ -257,6 +257,19 @@ header button:hover svg {
 header {
   justify-content: space-between;
 }
+body:has(.loadScreen:not(.hidden)) .unitsList,
+body:has(.errorScreen:not(.hidden)) .unitsList {
+  display: none;
+}
+
+body:has(.loadScreen:not(.hidden)) .favoriteThisButton,
+body:has(.errorScreen:not(.hidden)) .favoriteThisButton {
+  display: none;
+}
+body:has(.loadScreen:not(.hidden)) .unitsLabel,
+body:has(.errorScreen:not(.hidden)) .unitsLabel {
+  display: none;
+}
 @media (min-width: 1024px) {
 }
 @media (min-width: 1440px) {
