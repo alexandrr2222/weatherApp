@@ -25,6 +25,11 @@ import {
   mphToKmh,
 } from "./unitConvertors.js";
 import { exampleFavorites } from "./examples.js";
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("/weatherApp/service-worker.js");
+  });
+}
 const settingsButton = document.querySelector(".settingsButton");
 const settingsMenu = document.querySelector(".settingsMenu");
 const favBoxIcon = document.querySelector(".favBoxIcon");

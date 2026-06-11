@@ -14,7 +14,12 @@ export default {
       template: "./src/template.html",
     }),
     new CopyWebpackPlugin({
-      patterns: [{ from: "src/icons", to: "icons" }],
+      patterns: [
+        { from: "src/icons", to: "icons" },
+        { from: "src/manifest.json", to: "manifest.json" },
+        { from: "src/icon-192.png", to: "icon-192.png" },
+        { from: "src/icon-512.png", to: "icon-512.png" },
+      ],
     }),
   ],
   module: {

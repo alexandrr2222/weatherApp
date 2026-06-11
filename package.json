@@ -44,6 +44,7 @@
   "dependencies": {
     "@meteocons/svg": "^0.1.0",
     "date-fns": "^4.4.0",
-    "date-fns-tz": "^3.2.0"
+    "date-fns-tz": "^3.2.0",
+    "workbox-webpack-plugin": "^7.4.1"
   }
 }
