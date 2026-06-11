@@ -1,11 +1,9 @@
-// error msg on fail load
-// saving cords bad
-
+// ERROR MESSAGE
 // guardrails against clicking options menu while api loading/or error
 
+// // saving cords bad
 // refactor and especially modulate code
 // detail changer for hours
-// goofy region overflow handling
 
 import "../css/reset.css";
 import "../css/global.css";
@@ -28,6 +26,7 @@ import {
   kmhToMph,
   mphToKmh,
 } from "./unitConvertors.js";
+import { exampleFavorites } from "./examples.js";
 const settingsButton = document.querySelector(".settingsButton");
 const settingsMenu = document.querySelector(".settingsMenu");
 const favBoxIcon = document.querySelector(".favBoxIcon");
@@ -58,6 +57,17 @@ const LOADER_TIMEOUT = 600;
 loadSettings();
 loadFavorites();
 getCurrentLocation();
+if (!favoritePlaces.length) {
+  console.log("ji");
+  loadFavoriteExamples();
+}
+function loadFavoriteExamples() {
+  exampleFavorites.forEach((example) => {
+    favoritePlaces.push(example);
+  });
+  saveFavorites();
+  loadFavorites();
+}
 document.addEventListener("click", (e) => {
   const btn = e.target.closest(".favList li");
   if (!btn) return;
@@ -145,6 +155,7 @@ favoriteThisButton.addEventListener("click", () => {
     targetCity.remove();
     favoritePlaces.splice(foundIndex, 1);
   }
+  console.log(favoritePlaces);
   saveFavorites();
 });
 
@@ -201,8 +212,10 @@ function loadSettings() {
 function saveFavorites() {
   localStorage.setItem("favObject", JSON.stringify(favoritePlaces));
 }
+
 function loadFavorites() {
   const favObject = JSON.parse(localStorage.getItem("favObject") || "[]");
+  console.log(favObject);
   favoritePlaces = favObject;
 
   favList.innerHTML = "";

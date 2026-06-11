@@ -30,46 +30,48 @@
           <ul class="autocomplete" role="listbox"></ul>
         </div>
       </div>
-      <button class="settingsButton"></button>
-      <menu class="settingsMenu">
-        <p class="menuLabel">Actions</p>
-        <ul class="actionsList">
-          <li>
-            <button class="favoriteThisButton">
-              <span class="starIconFull"></span>
-              <span class="starIconEmpty"></span>
-              <span class="favoriteThisText">Favorite</span>
-            </button>
-          </li>
-          <li>
-            <button class="currentLocation">
-              <span class="currentLocationIcon"></span>
-              <span class="currentLocationText">Current location</span>
-            </button>
-          </li>
-        </ul>
-        <p class="menuLabel">Units</p>
-        <ul class="unitsList">
-          <li>
-            <button class="tempSetting">
-              <span class="tempSettingIcon"></span>
-              <span class="tempSettingText">Fahrenheit</span>
-            </button>
-          </li>
-          <li>
-            <button class="speedUnitSetting">
-              <span class="speedUnitSettingIcon"></span>
-              <span class="speedUnitSettingText">mph</span>
-            </button>
-          </li>
-          <li>
-            <button class="timeSetting">
-              <span class="timeSettingsIcon"></span>
-              <span class="timeText">12h</span>
-            </button>
-          </li>
-        </ul>
-      </menu>
+      <div class="settingsCont">
+        <button class="settingsButton"></button>
+        <menu class="settingsMenu">
+          <p class="menuLabel">Actions</p>
+          <ul class="actionsList">
+            <li>
+              <button class="favoriteThisButton">
+                <span class="starIconFull"></span>
+                <span class="starIconEmpty"></span>
+                <span class="favoriteThisText">Favorite</span>
+              </button>
+            </li>
+            <li>
+              <button class="currentLocation">
+                <span class="currentLocationIcon"></span>
+                <span class="currentLocationText">Current location</span>
+              </button>
+            </li>
+          </ul>
+          <p class="menuLabel">Units</p>
+          <ul class="unitsList">
+            <li>
+              <button class="tempSetting">
+                <span class="tempSettingIcon"></span>
+                <span class="tempSettingText">Fahrenheit</span>
+              </button>
+            </li>
+            <li>
+              <button class="speedUnitSetting">
+                <span class="speedUnitSettingIcon"></span>
+                <span class="speedUnitSettingText">mph</span>
+              </button>
+            </li>
+            <li>
+              <button class="timeSetting">
+                <span class="timeSettingsIcon"></span>
+                <span class="timeText">12h</span>
+              </button>
+            </li>
+          </ul>
+        </menu>
+      </div>
     </header>
     <nav>
       <h2 class="favMenuLabel">Favorite Locations</h2>
@@ -81,12 +83,14 @@
         <div class="loadingText">Loading...</div>
         <span class="loader"></span>
       </div>
-      <section class="summaryCont">
+      <section class="headerCont">
         <h1 class="cityName">Kelheim, Bavaria</h1>
         <p class="currentTime">
           <span>Local time: </span>
           <time class="time" datetime="15:45">3:45 pm</time>
         </p>
+      </section>
+      <section class="summaryCont">
         <div class="mainWeatherIcon"></div>
         <p class="mainDegrees">
           <span class="degree" id="currentDegrees">15.6</span>

@@ -5,6 +5,9 @@ main {
 .time {
   text-transform: lowercase;
 }
+.headerCont {
+  text-align: center;
+}
 .summaryCont {
   display: flex;
   flex-direction: column;
@@ -16,6 +19,9 @@ main {
   font-weight: bold;
   margin-top: -0.5rem;
   margin-bottom: -0.25rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .currentTime {
   color: var(--text-muted);
@@ -133,7 +139,6 @@ main {
   color: var(--text-muted);
   margin-bottom: 0.125rem;
 }
-
 .cardResult {
   margin-top: -0.1rem;
   font-size: 1rem;
@@ -256,6 +261,13 @@ body:has(.loadScreen:not(.hidden)) {
   list-style: none;
   /* align-items: center; */
 }
+.dailyCont ul li {
+  /* display: flex;
+  justify-content: center; */
+}
+.dailyCont ul li li {
+  min-width: auto;
+}
 .dayCard {
   display: flex;
   gap: 1rem;
@@ -351,4 +363,129 @@ body:has(.loadScreen:not(.hidden)) {
   font-weight: 500;
   color: var(--text);
   line-height: 1;
+}
+.minmaxCont {
+  display: flex;
+  justify-content: center;
+  gap: 5rem;
+}
+@media (min-width: 450px) {
+  .dailyCont ul {
+    align-items: center;
+  }
+  .dailyCont ul li {
+    display: flex;
+    justify-content: center;
+  }
+  .dailyCont ul li li {
+    min-width: 25rem;
+  }
+  .hourlyCont {
+    margin: 0 auto;
+    margin-top: 2rem;
+    max-width: 25rem;
+  }
+  .hourlyCont::-webkit-scrollbar {
+    max-width: 25rem;
+  }
+}
+@media (min-width: 700px) {
+  .hourlyCont {
+    max-width: 40.7rem;
+  }
+  .hourlyCont::-webkit-scrollbar {
+    max-width: 40.7rem;
+  }
+  .dailyCont ul li li {
+    min-width: auto;
+  }
+  .dailyCont ul {
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .dailyCont ul li li {
+    min-width: 20rem;
+  }
+  .detailsCont {
+    grid-template-areas:
+      "wind UV rain"
+      "sunrise sunset humidity";
+  }
+}
+@media (min-width: 1024px) {
+  html {
+    scrollbar-gutter: stable;
+  }
+  .hourlyCont {
+    max-width: 61.05rem;
+  }
+  .hourlyCont::-webkit-scrollbar {
+    max-width: 61.05rem;
+  }
+  .detailsCont {
+    grid-template-areas: "wind UV rain humidity sunrise sunset";
+  }
+  main {
+    display: grid;
+    max-width: 64rem;
+    margin: 0 auto;
+    grid-template-areas:
+      "header header"
+      "summary details"
+      "hourly hourly"
+      "daily daily";
+  }
+  .headerCont {
+    grid-area: header;
+  }
+  .cityName {
+    font-size: 4rem;
+  }
+  .currentTime {
+    margin-top: 0.3rem;
+    font-size: 0.9rem;
+  }
+  .detailsCont {
+    gap: 2rem;
+    align-content: center;
+    align-self: center;
+    grid-template-areas:
+      "wind UV"
+      "sunrise sunset"
+      "rain humidity";
+  }
+  .summaryCont {
+    grid-area: summary;
+  }
+  .detailsCont {
+    grid-area: details;
+  }
+  .hourlyCont {
+    grid-area: hourly;
+  }
+  .dailyCont {
+    grid-area: daily;
+  }
+}
+@media (min-width: 1440px) {
+  body {
+    display: block;
+  }
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    transform: none;
+    width: 16rem;
+    height: 100dvh;
+    box-shadow: none;
+    z-index: 421;
+  }
+  header {
+    z-index: 420;
+  }
+  body {
+    margin-left: 13rem;
+  }
 }

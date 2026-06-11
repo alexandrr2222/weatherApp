@@ -46,7 +46,7 @@ export const StaticIconData = [
     dividerLineIcon: `<svg viewBox="0 0 260 28" width="100%" height="28" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
 		<circle cx="15" cy="14" r="1.8" fill="#6b5d4a"/>
 		<line x1="23" y1="14" x2="108" y2="14" stroke="#6b5d4a" stroke-width="1.2"/>
-		<g class="sep-diamond">
+		<g class="diamond">
 			<polygon points="130,3 141,14 130,25 119,14" fill="#a66537f6"/>
 			<polygon points="130,7 137,14 130,21 123,14" fill="#1e1a16"/>
 		</g>

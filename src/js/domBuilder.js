@@ -27,14 +27,18 @@ export function changeWeatherDOM(DOM, data, searchData) {
   DOM.locationName.dataset.region = searchData.region;
   DOM.locationName.dataset.latitude = searchData.latitude;
   DOM.locationName.dataset.longitude = searchData.longitude;
+  console.log(searchData.country);
   if (
     searchData.name === searchData.region ||
-    (searchData.name + ", " + searchData.region).length > 22 ||
     searchData.region === undefined ||
     searchData.region === "undefined"
-  )
-    DOM.locationName.textContent = searchData.name;
-  else
+  ) {
+    if (searchData.country === undefined || searchData.country === "undefined")
+      DOM.locationName.textContent = searchData.name;
+    else
+      DOM.locationName.textContent =
+        searchData.name + ", " + searchData.country;
+  } else
     DOM.locationName.textContent = searchData.name + ", " + searchData.region;
   DOM.localTime.textContent = formatInTimeZone(
     new Date(),

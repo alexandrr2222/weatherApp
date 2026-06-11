@@ -122,10 +122,13 @@ header button:hover svg {
   border-color: var(--accent);
   background-color: var(--surface-hover);
 }
+.settingsCont {
+  position: relative;
+}
 .settingsMenu {
   flex-direction: column;
   position: absolute;
-  top: 3.7rem;
+  top: 3rem;
   right: 0.5rem;
   background: var(--surface);
   border: 1px solid var(--divider);
@@ -133,7 +136,7 @@ header button:hover svg {
   padding: 0.4rem;
   z-index: 11;
   box-shadow: 0 8px 24px var(--shadow);
-  min-width: 10rem;
+  min-width: 12rem;
   max-height: 0;
   opacity: 0;
   padding-bottom: 0;
@@ -247,4 +250,20 @@ header button:hover svg {
 .speedUnitSettingText,
 .timeText {
   font-weight: 400;
+}
+.searchCont {
+  max-width: 25rem;
+}
+header {
+  justify-content: space-between;
+}
+@media (min-width: 1024px) {
+}
+@media (min-width: 1440px) {
+  header {
+    justify-content: center;
+  }
+  .favBoxIcon {
+    visibility: hidden;
+  }
 }
