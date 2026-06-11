@@ -1,6 +1,6 @@
 import { formatInTimeZone } from "date-fns-tz";
 import { add, format } from "date-fns";
-const DISPLAYED_HOURS = 12;
+const DISPLAYED_HOURS = 24;
 const DISPLAYED_DAYS = 6;
 
 function renderIcon(description, parent, night) {
@@ -14,6 +14,7 @@ function renderIcon(description, parent, night) {
   parent.append(img);
 }
 export function changeWeatherDOM(DOM, data, searchData) {
+  console.log(searchData);
   let currentHour = formatInTimeZone(new Date(), data.timezone, "HH");
   if (currentHour[0] === "0") currentHour = currentHour.slice(1);
   let night = "";
@@ -144,8 +145,10 @@ export function buildDayCards(parent, weather) {
         <li class="dayCard">
             <div class="weatherDayIcon"></div>
             <div class="weatherDayMain">
-              <time datetime="" class="dayDay">${dayName}</time>
-              <time datetime="" class="dayDate">${date}</time>
+              <div class="dayAndDateCont">
+                <time datetime="" class="dayDay">${dayName}</time>
+                <time datetime="" class="dayDate">${date}</time>
+              </div>
               <div class="minmaxDayCont">
                 <div class="minDayCOnt">
                   <p class="minTempDay">
@@ -172,7 +175,7 @@ export function buildDayCards(parent, weather) {
                 <div class="dayWindIcon"></div>
                 <div>
                   <p class="dayWindText">Wind max</p>
-                  <p>
+                  <p class="dayWindUnitCont">
                     <span class="dayWindUnit speed">${Math.round(
                       weather.daily.wind_speed_10m_max[i + 1],
                     )}</span>
@@ -184,7 +187,7 @@ export function buildDayCards(parent, weather) {
                 <div class="dayPrecipitationIcon"></div>
                 <div>
                   <p class="dayPrecipitationText">Precipitation</p>
-                  <p>
+                  <p class="dayPrecipitationUnitCont">
                     <span class="dayPrecipitationUnit">${Math.round(
                       weather.daily.precipitation_probability_max[i + 1],
                     )}</span><span>%</span>
@@ -195,7 +198,7 @@ export function buildDayCards(parent, weather) {
                 <div class="dayUVIcon"></div>
                 <div>
                   <p class="dayUVText">Max UV</p>
-                  <p class="dayUVUnit">${fixedUV}</p>
+                  <p class="dayUVUnitCont">${fixedUV}</p>
                 </div>
               </div>
             </div>

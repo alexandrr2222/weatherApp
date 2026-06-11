@@ -26,3 +26,11 @@ ul li {
 ul {
   padding: 0;
 }
+@media (pointer: coarse) {
+  html::-webkit-scrollbar {
+    display: none;
+  }
+  html {
+    scrollbar-width: none;
+  }
+}

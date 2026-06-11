@@ -1,8 +1,7 @@
 // error msg on fail load
-// should be converting from original kmph and c, NOT from mph/f to kmph/c
+// saving cords bad
 
-// guardrails against clicking options menu while api loading
-// consider removing scrollbar on phone
+// guardrails against clicking options menu while api loading/or error
 
 // refactor and especially modulate code
 // detail changer for hours
@@ -22,12 +21,12 @@ import {
   buildHourCards,
   buildDayCards,
 } from "./domBuilder.js";
+import { timeConverter } from "./unitsTime.js";
 import {
   celsiusToFahrenheit,
   fahrenheitToCelsius,
   kmhToMph,
   mphToKmh,
-  timeConverter,
 } from "./unitConvertors.js";
 const settingsButton = document.querySelector(".settingsButton");
 const settingsMenu = document.querySelector(".settingsMenu");
@@ -89,6 +88,10 @@ favoriteThisButton.addEventListener("click", () => {
     data-longitude="${longitude}">
         ${formattedName}
     </button>`;
+    if (cityName.textContent.includes(",")) {
+      li.dataset.region = cityName.textContent.split(", ")[1];
+    }
+    li.dataset.city = formattedName;
     favoritePlaces.push({
       name: formattedName,
       region: cityName.textContent.split(",")[1],
@@ -102,30 +105,19 @@ favoriteThisButton.addEventListener("click", () => {
         `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`,
       );
       const searchResult = await reverseGeoSearch.json();
-      setTimeout(() => {
-        loadScreen.classList.add("hidden");
-      }, LOADER_TIMEOUT);
-
-      //   let name;
-      //   let region;
-      //   const ourObject = favoritePlaces.find(
-      //     (obj) => obj.latitude === latitude && obj.longitude === longitude,
-      //   );
-      //   if (searchResult.address.town === undefined) {
-      //     name = ourObject.name;
-      //     region = ourObject.region;
-      //   } else {
-      //     name = searchResult.address.town;
-      //     region = searchResult.address.region;
-      //   }
+      console.log(searchResult);
       const reformatedSearchResult = {
-        name: cityName.dataset.city,
-        region: cityName.dataset.region,
+        name: li.dataset.city,
+        region: li.dataset.region,
         country: searchResult.address.country,
         latitude: latitude,
         longitude: longitude,
       };
+      console.log(reformatedSearchResult);
       const returnedWeather = await getWeatherData(latitude, longitude);
+      setTimeout(() => {
+        loadScreen.classList.add("hidden");
+      }, LOADER_TIMEOUT);
       if (returnedWeather) {
         changeWeatherDOM(
           changingValues,
@@ -223,6 +215,10 @@ function loadFavorites() {
     data-longitude="${fav.longitude}">
         ${fav.name}
     </button>`;
+    if (fav.region) {
+      li.dataset.region = fav.region;
+    }
+    li.dataset.name = fav.name;
     favList.append(li);
     const targetCity = document.querySelector(
       `#ID${fav.latitude.replace(/\./g, "")}${fav.longitude.replace(/\./g, "")}`,
@@ -235,30 +231,18 @@ function loadFavorites() {
         `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`,
       );
       const searchResult = await reverseGeoSearch.json();
-      setTimeout(() => {
-        loadScreen.classList.add("hidden");
-      }, LOADER_TIMEOUT);
-      //   let name;
-      //   let region;
-      //   console.log(favObject);
-      //   const ourObject = favObject.find(
-      //     (obj) => obj.latitude === latitude && obj.longitude === longitude,
-      //   );
-      //   if (searchResult.address.town === undefined) {
-      //     name = ourObject.name;
-      //     region = ourObject.region;
-      //   } else {
-      //     name = searchResult.address.town;
-      //     region = searchResult.address.region;
-      //   }
+
       const reformatedSearchResult = {
-        name: targetCity.dataset.city,
-        region: targetCity.dataset.region,
+        name: li.dataset.name,
+        region: li.dataset.region,
         country: searchResult.address.country,
         latitude: latitude,
         longitude: longitude,
       };
       const returnedWeather = await getWeatherData(latitude, longitude);
+      setTimeout(() => {
+        loadScreen.classList.add("hidden");
+      }, LOADER_TIMEOUT);
       if (returnedWeather) {
         changeWeatherDOM(
           changingValues,
@@ -319,11 +303,11 @@ function getCurrentLocation() {
         longitude: position.coords.longitude,
       };
     }
+
+    const returnedWeather = await getWeatherData(latitude, longitude);
     setTimeout(() => {
       loadScreen.classList.add("hidden");
     }, LOADER_TIMEOUT);
-
-    const returnedWeather = await getWeatherData(latitude, longitude);
     if (returnedWeather) {
       changeWeatherDOM(changingValues, returnedWeather, reformatedSearchResult);
       buildHourCards(hourlyCont, returnedWeather);
@@ -349,13 +333,7 @@ function checkUnits() {
 }
 timeSetting.addEventListener("click", () => {
   const times = document.querySelectorAll(".time");
-  if (timeText.textContent === "12h") {
-    timeConverter(times, "12");
-    timeText.textContent = "24h";
-  } else if (timeText.textContent === "24h") {
-    timeConverter(times, "24");
-    timeText.textContent = "12h";
-  }
+  timeConverter(times, timeText);
   saveSettings();
 });
 tempSetting.addEventListener("click", () => {
