@@ -395,10 +395,13 @@ header button:hover svg {
   border-color: var(--accent);
   background-color: var(--surface-hover);
 }
+.settingsCont {
+  position: relative;
+}
 .settingsMenu {
   flex-direction: column;
   position: absolute;
-  top: 3.7rem;
+  top: 3rem;
   right: 0.5rem;
   background: var(--surface);
   border: 1px solid var(--divider);
@@ -406,7 +409,7 @@ header button:hover svg {
   padding: 0.4rem;
   z-index: 11;
   box-shadow: 0 8px 24px var(--shadow);
-  min-width: 10rem;
+  min-width: 12rem;
   max-height: 0;
   opacity: 0;
   padding-bottom: 0;
@@ -521,6 +524,35 @@ header button:hover svg {
 .timeText {
   font-weight: 400;
 }
+.searchCont {
+  max-width: 25rem;
+}
+header {
+  justify-content: space-between;
+}
+body:has(.loadScreen:not(.hidden)) .unitsList,
+body:has(.errorScreen:not(.hidden)) .unitsList {
+  display: none;
+}
+
+body:has(.loadScreen:not(.hidden)) .favoriteThisButton,
+body:has(.errorScreen:not(.hidden)) .favoriteThisButton {
+  display: none;
+}
+body:has(.loadScreen:not(.hidden)) .unitsLabel,
+body:has(.errorScreen:not(.hidden)) .unitsLabel {
+  display: none;
+}
+@media (min-width: 1024px) {
+}
+@media (min-width: 1440px) {
+  header {
+    justify-content: center;
+  }
+  .favBoxIcon {
+    visibility: hidden;
+  }
+}
 
 .overlay {
   position: fixed;
@@ -546,7 +578,23 @@ nav {
   padding: 1.5rem 1rem;
   transform: translateX(-100%);
   transition: transform 0.3s ease;
-  overflow-y: scroll;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent) transparent;
+  height: 100dvh;
+}
+nav::-webkit-scrollbar {
+  width: 6px;
+}
+nav::-webkit-scrollbar-track {
+  background: transparent;
+}
+nav::-webkit-scrollbar-thumb {
+  background: var(--surface-hover);
+  border-radius: 3px;
+}
+nav::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
 }
 nav.active {
   transform: translateX(0);
@@ -573,11 +621,11 @@ body:has(nav.active) {
   height: 100%;
   width: 100%;
 }
-.sep-diamond {
+.diamond {
   transform-box: fill-box;
   transform-origin: center;
 }
-nav.active .sep-diamond {
+nav.active .diamond {
   animation: diamondIn 1000ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
 }
 @keyframes diamondIn {
@@ -626,6 +674,9 @@ main {
 .time {
   text-transform: lowercase;
 }
+.headerCont {
+  text-align: center;
+}
 .summaryCont {
   display: flex;
   flex-direction: column;
@@ -637,6 +688,9 @@ main {
   font-weight: bold;
   margin-top: -0.5rem;
   margin-bottom: -0.25rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .currentTime {
   color: var(--text-muted);
@@ -754,7 +808,6 @@ main {
   color: var(--text-muted);
   margin-bottom: 0.125rem;
 }
-
 .cardResult {
   margin-top: -0.1rem;
   font-size: 1rem;
@@ -866,6 +919,32 @@ body:has(.loadScreen:not(.hidden)) {
     transform: rotate(360deg);
   }
 }
+.errorScreen {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--bg);
+  z-index: 7;
+}
+body:has(.errorScreen:not(.hidden)) {
+  overflow: hidden;
+}
+.errorScreen.hidden {
+  display: none;
+}
+.errorText {
+  font-size: 1.5rem;
+  margin-bottom: 0rem;
+}
+.errorText span {
+  color: var(--accent);
+}
+.errorText2 {
+  font-size: 1.2rem;
+}
 
 .dailyCont {
   margin-top: 2rem;
@@ -876,6 +955,13 @@ body:has(.loadScreen:not(.hidden)) {
   gap: 0.5rem;
   list-style: none;
   /* align-items: center; */
+}
+.dailyCont ul li {
+  /* display: flex;
+  justify-content: center; */
+}
+.dailyCont ul li li {
+  min-width: auto;
 }
 .dayCard {
   display: flex;
@@ -972,5 +1058,132 @@ body:has(.loadScreen:not(.hidden)) {
   font-weight: 500;
   color: var(--text);
   line-height: 1;
+}
+.minmaxCont {
+  display: flex;
+  justify-content: center;
+  gap: 5rem;
+}
+@media (min-width: 450px) {
+  .dailyCont ul {
+    align-items: center;
+  }
+  .dailyCont ul li {
+    display: flex;
+    justify-content: center;
+  }
+  .dailyCont ul li li {
+    min-width: 25rem;
+  }
+  .hourlyCont {
+    margin: 0 auto;
+    margin-top: 2rem;
+    max-width: 25rem;
+  }
+  .hourlyCont::-webkit-scrollbar {
+    max-width: 25rem;
+  }
+}
+@media (min-width: 700px) {
+  .hourlyCont {
+    max-width: 40.7rem;
+  }
+  .hourlyCont::-webkit-scrollbar {
+    max-width: 40.7rem;
+  }
+  .dailyCont ul li li {
+    min-width: auto;
+  }
+  .dailyCont ul {
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .dailyCont ul li li {
+    min-width: 20rem;
+  }
+  .detailsCont {
+    grid-template-areas:
+      "wind UV rain"
+      "sunrise sunset humidity";
+  }
+}
+@media (min-width: 1024px) {
+  html {
+    scrollbar-gutter: stable;
+  }
+  .hourlyCont {
+    max-width: 61.05rem;
+  }
+  .hourlyCont::-webkit-scrollbar {
+    max-width: 61.05rem;
+  }
+  .detailsCont {
+    grid-template-areas: "wind UV rain humidity sunrise sunset";
+  }
+  main {
+    display: grid;
+    max-width: 64rem;
+    margin: 0 auto;
+    grid-template-areas:
+      "header header"
+      "summary details"
+      "hourly hourly"
+      "daily daily";
+  }
+  .headerCont {
+    grid-area: header;
+  }
+  .cityName {
+    font-size: 4rem;
+  }
+  .currentTime {
+    margin-top: 0.3rem;
+    font-size: 0.9rem;
+  }
+  .detailsCont {
+    gap: 2rem;
+    align-content: center;
+    align-self: center;
+    grid-template-areas:
+      "wind UV"
+      "sunrise sunset"
+      "rain humidity";
+  }
+  .summaryCont {
+    grid-area: summary;
+  }
+  .detailsCont {
+    grid-area: details;
+  }
+  .hourlyCont {
+    grid-area: hourly;
+  }
+  .dailyCont {
+    grid-area: daily;
+  }
+}
+@media (min-width: 1440px) {
+  body {
+    display: block;
+  }
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    transform: none;
+    width: 16rem;
+    height: 100dvh;
+    box-shadow: none;
+    z-index: 421;
+  }
+  header {
+    z-index: 420;
+  }
+  body,
+  .loadScreen,
+  .errorScreen {
+    margin-left: 13rem;
+  }
 }
 
