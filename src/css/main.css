@@ -511,7 +511,7 @@ body:has(.errorScreen:not(.hidden)) {
     transform: none;
     width: 16rem;
     height: 100dvh;
-    box-shadow: none;
+    box-shadow: 4px 0 12px var(--shadow);
     z-index: 421;
   }
   header {
