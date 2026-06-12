@@ -1164,6 +1164,9 @@ body:has(.errorScreen:not(.hidden)) {
   }
 }
 @media (min-width: 1440px) {
+  .hourlyCont:hover::-webkit-scrollbar {
+    height: 8px;
+  }
   body {
     display: block;
   }
