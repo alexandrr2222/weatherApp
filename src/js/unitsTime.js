@@ -1,6 +1,6 @@
 import { parse, format } from "date-fns";
-export function timeConverter(times, timeText) {
-  if (timeText.textContent === "12h") {
+export function timeConverter(times, timeText, valueText) {
+  if (valueText === "12h") {
     timeText.textContent = "24h";
     Array.from(times).forEach((time) => {
       const currentTime = time.textContent;
@@ -9,7 +9,7 @@ export function timeConverter(times, timeText) {
         time.textContent = format(parsed, "h a");
       else time.textContent = format(parsed, "h:mm a");
     });
-  } else if (timeText.textContent === "24h") {
+  } else if (valueText === "24h") {
     timeText.textContent = "12h";
     Array.from(times).forEach((time) => {
       let parsed;

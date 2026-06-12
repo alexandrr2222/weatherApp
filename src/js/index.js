@@ -380,11 +380,11 @@ function checkUnits() {
     celsiusToFahrenheit(degrees, tempMarkers);
   if (speedUnitSettingText.textContent === "km/h")
     kmhToMph(speeds, speedMarkers);
-  if (timeText.textContent === "24h") timeConverter(times, "12");
+  if (timeText.textContent === "24h") timeConverter(times, timeText, "12h");
 }
 timeSetting.addEventListener("click", () => {
   const times = document.querySelectorAll(".time");
-  timeConverter(times, timeText);
+  timeConverter(times, timeText, timeText.textContent);
   saveSettings();
 });
 tempSetting.addEventListener("click", () => {
