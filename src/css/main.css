@@ -498,6 +498,9 @@ body:has(.errorScreen:not(.hidden)) {
   .hourlyCont:hover::-webkit-scrollbar {
     height: 8px;
   }
+  .hourlyCont:hover ~ .dailyCont {
+    margin-top: calc(2rem - 5px);
+  }
   body {
     display: block;
   }
