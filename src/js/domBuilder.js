@@ -40,6 +40,11 @@ export function changeWeatherDOM(DOM, data, searchData) {
         searchData.name + ", " + searchData.country;
   } else
     DOM.locationName.textContent = searchData.name + ", " + searchData.region;
+  if (
+    (searchData.region === undefined || searchData.region === "undefined") &&
+    searchData.country === searchData.name
+  )
+    DOM.locationName.textContent = searchData.name;
   DOM.localTime.textContent = formatInTimeZone(
     new Date(),
     data.timezone,

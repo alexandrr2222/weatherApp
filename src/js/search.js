@@ -27,6 +27,15 @@ export function createSearchDOM(dataObject, parent) {
     li.dataset.longitude = o.longitude;
     li.innerHTML = `<p class="autoName">${o.name}</p>
     <p class="autoRegion">${o.region}, ${o.country}</p>`;
+    if (o.region === undefined || o.region === "undefined")
+      li.querySelector(".autoRegion").textContent = o.country;
+    if (o.country === undefined || o.country === "undefined")
+      li.querySelector(".autoRegion").textContent = o.region;
+    if (
+      (o.country === undefined || o.country === "undefined") &&
+      (o.region === undefined || o.region === "undefined")
+    )
+      li.querySelector(".autoRegion").textContent = "Unknown";
     parent.append(li);
   });
 }
